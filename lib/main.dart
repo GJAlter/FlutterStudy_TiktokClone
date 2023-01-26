@@ -14,7 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFFE9435A),
       ),
-      home: Container(),
+      home: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFFE9435A),
+        ),
+      ),
     );
   }
 }
