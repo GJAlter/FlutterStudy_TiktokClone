@@ -10,13 +10,11 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   void onLoginTap(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   void onEmailAndPasswordTap(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const UsernameScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UsernameScreen()));
   }
 
   @override
@@ -28,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
           child: Column(
             children: [
               Gaps.v80,
-              Text(
+              const Text(
                 "Sign up for Tiktok",
                 style: TextStyle(
                   fontSize: Sizes.size24,
@@ -36,7 +34,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               Gaps.v20,
-              Text(
+              const Text(
                 "Create a profile, follow other accounts, make your own videos, and more.",
                 style: TextStyle(
                   fontSize: Sizes.size16,
@@ -46,22 +44,16 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
-                icon: FaIcon(FontAwesomeIcons.user),
+                icon: const FaIcon(FontAwesomeIcons.user),
                 text: "Use email & password",
                 onTap: () => onEmailAndPasswordTap(context),
               ),
               Gaps.v14,
-              AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.facebook),
-                  text: "Continue with Facebook"),
+              const AuthButton(icon: FaIcon(FontAwesomeIcons.facebook), text: "Continue with Facebook"),
               Gaps.v14,
-              AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.apple),
-                  text: "Continue with Apple"),
+              const AuthButton(icon: FaIcon(FontAwesomeIcons.apple), text: "Continue with Apple"),
               Gaps.v14,
-              AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.google),
-                  text: "Continue with Google"),
+              const AuthButton(icon: FaIcon(FontAwesomeIcons.google), text: "Continue with Google"),
             ],
           ),
         ),
@@ -80,9 +72,7 @@ class SignUpScreen extends StatelessWidget {
                 onTap: () => onLoginTap(context),
                 child: Text(
                   "Log in",
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.w700),
+                  style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
