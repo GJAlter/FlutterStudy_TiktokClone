@@ -39,7 +39,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   bool isPasswordValid2() {
-    final regExp = RegExp(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].*");
+    final regExp = RegExp(
+        r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].*");
     return regExp.hasMatch(password);
   }
 
@@ -113,7 +114,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       GestureDetector(
                         onTap: onHideTap,
                         child: FaIcon(
-                          isHidePassword ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+                          isHidePassword
+                              ? FontAwesomeIcons.eye
+                              : FontAwesomeIcons.eyeSlash,
                           color: Colors.grey.shade400,
                           size: Sizes.size20,
                         ),
@@ -146,7 +149,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 children: [
                   FaIcon(
                     FontAwesomeIcons.circleCheck,
-                    color: isPasswordValid1() ? Colors.green : Colors.grey.shade400,
+                    color: isPasswordValid1()
+                        ? Colors.green
+                        : Colors.grey.shade400,
                     size: Sizes.size18,
                   ),
                   Gaps.h5,
@@ -158,7 +163,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                 children: [
                   FaIcon(
                     FontAwesomeIcons.circleCheck,
-                    color: isPasswordValid2() ? Colors.green : Colors.grey.shade400,
+                    color: isPasswordValid2()
+                        ? Colors.green
+                        : Colors.grey.shade400,
                     size: Sizes.size18,
                   ),
                   Gaps.h5,
@@ -167,7 +174,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
               ),
               Gaps.v16,
               FormButton(
-                disabled: password.isEmpty || !isPasswordValid1() || !isPasswordValid2(),
+                text: "Next",
+                disabled: password.isEmpty ||
+                    !isPasswordValid1() ||
+                    !isPasswordValid2(),
                 onTap: onSubmitTap,
               )
             ],
