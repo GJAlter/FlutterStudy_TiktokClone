@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
 
 const interests = [
@@ -43,6 +44,15 @@ class _InterestsScreenState extends State<InterestsScreen> {
     setState(() {
       isShowTitle = isOverOffset;
     });
+  }
+
+  void onNextTap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const TutorialScreen(),
+      ),
+    );
   }
 
   @override
@@ -101,20 +111,23 @@ class _InterestsScreenState extends State<InterestsScreen> {
               ),
               Gaps.h20,
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Sizes.size16,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: const Text(
-                    "Next",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: Sizes.size16,
-                      fontWeight: FontWeight.w600,
+                child: GestureDetector(
+                  onTap: onNextTap,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: Sizes.size16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: const Text(
+                      "Next",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
