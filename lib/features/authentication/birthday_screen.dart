@@ -15,8 +15,7 @@ class BirthdayScreen extends StatefulWidget {
 class _BirthdayScreenState extends State<BirthdayScreen> {
   final TextEditingController birthdayController = TextEditingController();
 
-  DateTime initialDate =
-      DateTime.now().subtract(const Duration(days: 365 * 12));
+  DateTime initialDate = DateTime.now().subtract(const Duration(days: 365 * 12));
 
   @override
   void initState() {
@@ -31,13 +30,14 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void onNextTap() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const InterestsScreen()));
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const InterestsScreen()),
+      (route) => false,
+    );
   }
 
   void setTextFieldValueByDateTime(DateTime date) {
-    birthdayController.value =
-        TextEditingValue(text: date.toString().split(" ").first);
+    birthdayController.value = TextEditingValue(text: date.toString().split(" ").first);
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/tutorial_page.dart';
 
 import '../../constants/sizes.dart';
@@ -37,6 +38,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
     });
   }
 
+  void onEnterAppTap() {
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainNavigationScreen(),
+        ),
+        (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -45,15 +55,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: Sizes.size24),
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.size24),
             child: AnimatedCrossFade(
               crossFadeState: page == Page.first ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-              duration: Duration(milliseconds: 500),
-              firstChild: TutorialPage(
+              duration: const Duration(milliseconds: 500),
+              firstChild: const TutorialPage(
                 title: "Watch cool videos!",
                 description: "Videos are personalized for you based on what you watch, like, and share.",
               ),
-              secondChild: TutorialPage(
+              secondChild: const TutorialPage(
                 title: "Follow the rules",
                 description: "Take care of one anothers. Pils!",
               ),
@@ -67,10 +77,10 @@ class _TutorialScreenState extends State<TutorialScreen> {
                 horizontal: Sizes.size24,
               ),
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 opacity: page == Page.first ? 0 : 1,
                 child: CupertinoButton(
-                  onPressed: () {},
+                  onPressed: onEnterAppTap,
                   color: Theme.of(context).primaryColor,
                   child: const Text("Enter the app!"),
                 ),

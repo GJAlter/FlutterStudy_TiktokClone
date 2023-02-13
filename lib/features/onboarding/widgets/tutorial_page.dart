@@ -20,7 +20,7 @@ class TutorialPage extends StatelessWidget {
         Gaps.v80,
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: Sizes.size40,
             fontWeight: FontWeight.bold,
           ),
@@ -28,7 +28,7 @@ class TutorialPage extends StatelessWidget {
         Gaps.v16,
         Text(
           description,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: Sizes.size20,
           ),
         ),
