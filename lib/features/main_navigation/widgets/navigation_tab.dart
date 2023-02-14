@@ -26,7 +26,7 @@ class NavigationTab extends StatelessWidget {
         child: Container(
           color: Colors.black,
           child: AnimatedOpacity(
-            duration: Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 150),
             opacity: isSelected ? 1 : 0.6,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class NavigationTab extends StatelessWidget {
                 Gaps.v5,
                 Text(
                   text,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
                 ),

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/navigation_tab.dart';
-import 'package:tiktok_clone/features/main_navigation/widgets/stf_screen.dart';
+import 'package:tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
+import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
+
+import '../../constants/gaps.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({Key? key}) : super(key: key);
@@ -14,30 +17,53 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int selectedIndex = 0;
 
-  final screens = [
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-    Container(),
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-  ];
-
   void onItemTap(int index) {
     setState(() {
       selectedIndex = index;
     });
   }
 
+  void onPostVideoTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Container(),
+      fullscreenDialog: true,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens.elementAt(selectedIndex),
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: selectedIndex != 0,
+            child: VideoTimelineScreen(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 1,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 2,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 3,
+            child: Container(),
+          ),
+          Offstage(
+            offstage: selectedIndex != 4,
+            child: Container(),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               NavigationTab(
                 text: "Home",
@@ -53,13 +79,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 selectedIcon: FontAwesomeIcons.magnifyingGlass,
                 onTap: () => onItemTap(1),
               ),
-              NavigationTab(
-                text: "",
-                isSelected: selectedIndex == 2,
-                icon: FontAwesomeIcons.plus,
-                selectedIcon: FontAwesomeIcons.plus,
-                onTap: () => onItemTap(2),
+              Gaps.h24,
+              GestureDetector(
+                onTap: onPostVideoTap,
+                child: PostVideoButton(),
               ),
+              Gaps.h24,
               NavigationTab(
                 text: "Inbox",
                 isSelected: selectedIndex == 3,

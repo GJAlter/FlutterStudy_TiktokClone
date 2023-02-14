@@ -42,7 +42,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[selectedIndex],
-      bottomNavigationBar: NavigationBar(selectedIndex: selectedIndex, onDestinationSelected: onItemTap, labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected, destinations: [
+      bottomNavigationBar: NavigationBar(selectedIndex: selectedIndex, onDestinationSelected: onItemTap, labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected, destinations: const [
         NavigationDestination(
           icon: FaIcon(
             FontAwesomeIcons.house,
