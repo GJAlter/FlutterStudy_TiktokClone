@@ -33,11 +33,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Offstage(
             offstage: selectedIndex != 0,
-            child: VideoTimelineScreen(),
+            child: const VideoTimelineScreen(),
           ),
           Offstage(
             offstage: selectedIndex != 1,
@@ -82,7 +84,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               Gaps.h24,
               GestureDetector(
                 onTap: onPostVideoTap,
-                child: PostVideoButton(),
+                child: const PostVideoButton(),
               ),
               Gaps.h24,
               NavigationTab(

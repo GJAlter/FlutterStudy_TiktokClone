@@ -34,7 +34,8 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   }
 
   void onVideoFinished() {
-    pageController.nextPage(duration: scrollDuration, curve: scrollCurve);
+    return;
+    // pageController.nextPage(duration: scrollDuration, curve: scrollCurve);
   }
 
   @override
@@ -43,14 +44,30 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
     super.dispose();
   }
 
+  Future<void> onRefresh() {
+    return Future.delayed(
+      const Duration(seconds: 2),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      scrollDirection: Axis.vertical,
-      controller: pageController,
-      onPageChanged: onPageChanged,
-      itemCount: colors.length,
-      itemBuilder: (context, index) => VideoPost(onVideoFinished: onVideoFinished, index: index),
+    return RefreshIndicator(
+      displacement: 0,
+      edgeOffset: 100,
+      color: Colors.black,
+      onRefresh: onRefresh,
+      child: PageView.builder(
+        scrollDirection: Axis.vertical,
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        itemCount: colors.length,
+        itemBuilder: (context, index) => VideoPost(
+          onVideoFinished: onVideoFinished,
+          index: index,
+          description: "가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하",
+        ),
+      ),
     );
   }
 }

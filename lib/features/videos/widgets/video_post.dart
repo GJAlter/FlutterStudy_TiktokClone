@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/video_comment_screen.dart';
+import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
   final int index;
+  final String description;
 
-  const VideoPost({Key? key, required this.onVideoFinished, required this.index}) : super(key: key);
+  const VideoPost({
+    Key? key,
+    required this.onVideoFinished,
+    required this.index,
+    required this.description,
+  }) : super(key: key);
 
   @override
   State<VideoPost> createState() => _VideoPostState();
@@ -21,6 +30,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   late final AnimationController animationController;
 
   bool isPaused = false;
+  bool isSeeMore = false;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -33,6 +43,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
 
   void initVideoPlayer() async {
     await videoPlayerController.initialize();
+    await videoPlayerController.setLooping(true);
     videoPlayerController.addListener(onVideoChange);
     setState(() {});
   }
@@ -45,14 +56,15 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
       value: 1.5,
       duration: animationDuration,
     );
-    animationController.addListener(() {
-      setState(() {});
-    });
   }
 
   void onVisibilityChanged(VisibilityInfo info) {
-    if (info.visibleFraction == 1 && !videoPlayerController.value.isPlaying) {
+    if (info.visibleFraction == 1 && !isPaused && !videoPlayerController.value.isPlaying) {
       videoPlayerController.play();
+    }
+
+    if (videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+      onPauseTap();
     }
   }
 
@@ -69,6 +81,20 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     });
   }
 
+  void onCommentTap() async {
+    if (videoPlayerController.value.isPlaying) {
+      onPauseTap();
+    }
+    await showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => const VideoCommentScreen(),
+    );
+
+    onPauseTap();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,12 +105,36 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   @override
   void dispose() {
     videoPlayerController.dispose();
-    animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isTextOverflow(String text) {
+      if (text.length > 20) {
+        return true;
+      }
+      return false;
+    }
+
+    String splitDescription(String text, int line) {
+      int textSize = 20;
+
+      if (text.length < textSize) {
+        if (line == 0) {
+          return text;
+        } else {
+          return "";
+        }
+      }
+
+      if (line == 0) {
+        return text.substring(0, textSize);
+      } else {
+        return text.substring(textSize, text.length);
+      }
+    }
+
     return VisibilityDetector(
       key: Key(widget.index.toString()),
       onVisibilityChanged: onVisibilityChanged,
@@ -105,8 +155,14 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
           Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: Transform.scale(
-                  scale: animationController.value,
+                child: AnimatedBuilder(
+                  animation: animationController,
+                  builder: (context, child) {
+                    return Transform.scale(
+                      scale: animationController.value,
+                      child: child,
+                    );
+                  },
                   child: AnimatedOpacity(
                     opacity: isPaused ? 1 : 0,
                     duration: animationDuration,
@@ -118,6 +174,94 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   ),
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 15,
+            left: 15,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "@Jun",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: Sizes.size20,
+                  ),
+                ),
+                Gaps.v10,
+                Container(
+                  child: Text(
+                    splitDescription(widget.description, 0),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: Sizes.size16,
+                    ),
+                  ),
+                ),
+                isTextOverflow(widget.description)
+                    ? Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            width: 200,
+                            child: Text(
+                              splitDescription(widget.description, 1),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: Sizes.size16,
+                              ),
+                              overflow: isSeeMore ? null : TextOverflow.ellipsis,
+                            ),
+                          ),
+                          Gaps.h28,
+                          GestureDetector(
+                            onTap: () {
+                              isSeeMore = !isSeeMore;
+                              setState(() {});
+                            },
+                            child: Text(
+                              isSeeMore ? "닫기" : "더보기",
+                              style: const TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            right: 10,
+            child: Column(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.black,
+                  foregroundImage: NetworkImage("https://i.stack.imgur.com/frlIf.png"),
+                  child: Text("Jun"),
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidHeart,
+                  text: "2.9M",
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.solidComment,
+                  text: "33.0K",
+                  onTap: onCommentTap,
+                ),
+                Gaps.v24,
+                VideoButton(
+                  icon: FontAwesomeIcons.share,
+                  text: "Share",
+                ),
+              ],
             ),
           ),
         ],
