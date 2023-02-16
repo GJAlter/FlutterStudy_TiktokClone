@@ -30,6 +30,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     ));
   }
 
+  bool isHome() {
+    return selectedIndex == 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +64,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        color: isHome() ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(
@@ -73,6 +77,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.house,
                 selectedIcon: FontAwesomeIcons.house,
                 onTap: () => onItemTap(0),
+                isHome: isHome(),
               ),
               NavigationTab(
                 text: "Discover",
@@ -80,11 +85,12 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.magnifyingGlass,
                 selectedIcon: FontAwesomeIcons.magnifyingGlass,
                 onTap: () => onItemTap(1),
+                isHome: isHome(),
               ),
               Gaps.h24,
               GestureDetector(
                 onTap: onPostVideoTap,
-                child: const PostVideoButton(),
+                child: PostVideoButton(isHome: isHome()),
               ),
               Gaps.h24,
               NavigationTab(
@@ -93,6 +99,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.message,
                 selectedIcon: FontAwesomeIcons.solidMessage,
                 onTap: () => onItemTap(3),
+                isHome: isHome(),
               ),
               NavigationTab(
                 text: "Profile",
@@ -100,6 +107,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: FontAwesomeIcons.user,
                 selectedIcon: FontAwesomeIcons.solidUser,
                 onTap: () => onItemTap(4),
+                isHome: isHome(),
               ),
             ],
           ),

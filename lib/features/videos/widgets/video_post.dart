@@ -31,6 +31,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
 
   bool isPaused = false;
   bool isSeeMore = false;
+  bool isDisposed = false;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -63,7 +64,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
       videoPlayerController.play();
     }
 
-    if (videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
+    if (videoPlayerController.value.isPlaying && info.visibleFraction == 0 && !isDisposed) {
       onPauseTap();
     }
   }
@@ -104,6 +105,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
 
   @override
   void dispose() {
+    isDisposed = true;
     videoPlayerController.dispose();
     super.dispose();
   }

@@ -4,7 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../constants/sizes.dart';
 
 class PostVideoButton extends StatelessWidget {
-  const PostVideoButton({Key? key}) : super(key: key);
+  final bool isHome;
+
+  const PostVideoButton({Key? key, required this.isHome}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class PostVideoButton extends StatelessWidget {
           Container(
             height: 33,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: isHome ? Colors.white : Colors.black,
               borderRadius: BorderRadius.circular(
                 Sizes.size6,
               ),
@@ -51,10 +53,10 @@ class PostVideoButton extends StatelessWidget {
             //   right: Sizes.size12,
             //   bottom: Sizes.size5,
             // ),
-            child: const Center(
+            child: Center(
               child: FaIcon(
                 FontAwesomeIcons.plus,
-                color: Colors.black,
+                color: isHome ? Colors.black : Colors.white,
                 size: Sizes.size16,
               ),
             ),
