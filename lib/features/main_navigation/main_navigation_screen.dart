@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/discover/discover_screen.dart';
+import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/navigation_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
@@ -16,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int selectedIndex = 1;
+  int selectedIndex = 3;
 
   void onItemTap(int index) {
     setState(() {
@@ -26,7 +27,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   void onPostVideoTap() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Container(),
+      builder: (context) => const Scaffold(),
       fullscreenDialog: true,
     ));
   }
@@ -60,12 +61,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             ),
           ),
           Offstage(
-            offstage: selectedIndex != 2,
-            child: Container(),
-          ),
-          Offstage(
             offstage: selectedIndex != 3,
-            child: Container(),
+            child: const InboxScreen(),
           ),
           Offstage(
             offstage: selectedIndex != 4,
