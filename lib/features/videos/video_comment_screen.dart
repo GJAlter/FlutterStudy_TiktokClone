@@ -92,7 +92,7 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                               ),
                             ),
                             Gaps.v3,
-                            Text("댓글 하나아나아랴두리냐두리냗더ㅇ러ㅑ미넝리ㅑ넝린ㅇ러ㅣㅑ"),
+                            const Text("댓글 하나아나아랴두리냐두리냗더ㅇ러ㅑ미넝리ㅑ넝린ㅇ러ㅣㅑ"),
                           ],
                         ),
                       ),
@@ -160,7 +160,7 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                                   horizontal: Sizes.size12,
                                 ),
                                 suffixIcon: Padding(
-                                  padding: EdgeInsets.only(right: Sizes.size14),
+                                  padding: const EdgeInsets.only(right: Sizes.size14),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [

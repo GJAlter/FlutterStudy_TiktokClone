@@ -241,14 +241,14 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             right: 10,
             child: Column(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundImage: NetworkImage("https://i.stack.imgur.com/frlIf.png"),
                   child: Text("Jun"),
                 ),
                 Gaps.v24,
-                VideoButton(
+                const VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
                   text: "2.9M",
                 ),
@@ -259,7 +259,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   onTap: onCommentTap,
                 ),
                 Gaps.v24,
-                VideoButton(
+                const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 ),
