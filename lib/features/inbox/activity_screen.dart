@@ -85,6 +85,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
           onTap: toggleAnimations,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
               const Text("All Activity"),
               Gaps.h2,
@@ -120,7 +121,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                   onDismissed: (direction) => onDismissed(notification),
                   background: Container(
                     color: Colors.green,
-                    child: Padding(
+                    child: const Padding(
                       padding: EdgeInsets.only(left: Sizes.size10),
                       child: FaIcon(FontAwesomeIcons.check),
                     ),
@@ -128,7 +129,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                   key: Key(notification),
                   child: ListTile(
                     minVerticalPadding: Sizes.size16,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       horizontal: Sizes.size14,
                     ),
                     leading: Container(
