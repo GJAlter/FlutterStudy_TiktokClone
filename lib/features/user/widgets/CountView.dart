@@ -15,7 +15,7 @@ class CountView extends StatelessWidget {
       children: [
         Text(
           count,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: Sizes.size18,
           ),
