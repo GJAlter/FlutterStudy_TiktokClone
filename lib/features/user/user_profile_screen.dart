@@ -97,24 +97,71 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         ),
                       ),
                       Gaps.v14,
-                      FractionallySizedBox(
-                        widthFactor: 1 / 3,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: Sizes.size12),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(Sizes.size4),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: Sizes.size80,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: Sizes.size48,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(Sizes.size3),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Follow",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ),
-                          ),
-                          child: const Text(
-                            "Follow",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                            Gaps.h4,
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                  height: Sizes.size48,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(Sizes.size3),
+                                      ),
+                                      border: Border.all(
+                                        color: Colors.grey.shade200,
+                                      )),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.youtube,
+                                  )),
                             ),
-                            textAlign: TextAlign.center,
-                          ),
+                            Gaps.h4,
+                            Expanded(
+                              flex: 2,
+                              child: Container(
+                                  height: Sizes.size48,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(Sizes.size3),
+                                      ),
+                                      border: Border.all(
+                                        color: Colors.grey.shade200,
+                                      )),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.caretDown,
+                                    size: Sizes.size14,
+                                  )),
+                            ),
+                          ],
                         ),
                       ),
                       Gaps.v14,

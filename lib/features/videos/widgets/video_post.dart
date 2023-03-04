@@ -60,6 +60,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   }
 
   void onVisibilityChanged(VisibilityInfo info) {
+    if (!mounted) return;
     if (info.visibleFraction == 1 && !isPaused && !videoPlayerController.value.isPlaying) {
       videoPlayerController.play();
     }
