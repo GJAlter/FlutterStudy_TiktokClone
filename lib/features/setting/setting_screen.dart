@@ -1,7 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  bool isNotifications = false;
+
+  void onNotificationChanged(bool? value) {
+    if (value == null) return;
+    setState(() {
+      isNotifications = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +75,89 @@ class SettingScreen extends StatelessWidget {
               print(dateRange);
             },
             title: const Text("DateRange"),
+          ),
+          CheckboxListTile(
+            value: isNotifications,
+            onChanged: onNotificationChanged,
+            activeColor: Theme.of(context).primaryColor,
+            title: Text("Enable Notifications"),
+          ),
+          SwitchListTile.adaptive(
+            value: isNotifications,
+            onChanged: onNotificationChanged,
+            activeColor: Theme.of(context).primaryColor,
+            title: Text("Enable Notifications"),
+          ),
+          ListTile(
+            onTap: () {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: Text("Are you sure?"),
+                  content: Text("Pls dont go"),
+                  actions: [
+                    CupertinoDialogAction(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "No",
+                      ),
+                    ),
+                    CupertinoDialogAction(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      isDestructiveAction: true,
+                      child: Text(
+                        "Yes",
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+            title: Text(
+              "Log out(iOS)",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text("Are you sure?"),
+                  content: Text("Pls dont go"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "No",
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Yes",
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+            title: Text(
+              "Log out(AOS)",
+              style: TextStyle(
+                color: Colors.red,
+              ),
+            ),
           ),
         ],
       ),
