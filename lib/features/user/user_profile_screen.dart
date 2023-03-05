@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/setting/setting_screen.dart';
 import 'package:tiktok_clone/features/user/widgets/count_view.dart';
 import 'package:tiktok_clone/features/user/widgets/persistent_tab_bar.dart';
 
@@ -13,6 +14,12 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  void moveToSetting() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const SettingScreen(),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +33,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   title: const Text("Jun"),
                   actions: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: moveToSetting,
                       icon: const FaIcon(
                         FontAwesomeIcons.gear,
                         size: Sizes.size20,
