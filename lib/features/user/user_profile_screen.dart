@@ -145,7 +145,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       border: Border.all(
                                         color: Colors.grey.shade200,
                                       )),
-                                  child: FaIcon(
+                                  child: const FaIcon(
                                     FontAwesomeIcons.youtube,
                                   )),
                             ),
@@ -163,7 +163,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       border: Border.all(
                                         color: Colors.grey.shade200,
                                       )),
-                                  child: FaIcon(
+                                  child: const FaIcon(
                                     FontAwesomeIcons.caretDown,
                                     size: Sizes.size14,
                                   )),
@@ -243,12 +243,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.all(
+                                    borderRadius: const BorderRadius.all(
                                       Radius.circular(Sizes.size3),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(
                                       Sizes.size3,
                                     ),
                                     child: Text(
@@ -266,7 +266,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             Positioned(
                               bottom: 0,
                               child: Row(
-                                children: [
+                                children: const [
                                   Icon(
                                     Icons.play_arrow_outlined,
                                     color: Colors.white,

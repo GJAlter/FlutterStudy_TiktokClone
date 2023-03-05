@@ -7,7 +7,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
       ),
       body: ListView(
         children: [
@@ -20,15 +20,47 @@ class SettingScreen extends StatelessWidget {
             onTap: () => showLicensePage(
               context: context,
             ),
-            title: Text(
+            title: const Text(
               "About",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
             ),
-            subtitle: Text("About this app"),
+            subtitle: const Text("About this app"),
           ),
-          AboutListTile(),
+          ListTile(
+            onTap: () async {
+              final date = await showDatePicker(
+                context: context,
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1990),
+                lastDate: DateTime(2030),
+              );
+              final time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
+
+              print("$date $time");
+            },
+            title: const Text(
+              "What Time?",
+            ),
+          ),
+          ListTile(
+            onTap: () async {
+              final dateRange = await showDateRangePicker(
+                context: context,
+                firstDate: DateTime(1990),
+                lastDate: DateTime(2030),
+                builder: (context, child) {
+                  return Theme(
+                    data: ThemeData(appBarTheme: const AppBarTheme()),
+                    child: child!,
+                  );
+                },
+              );
+              print(dateRange);
+            },
+            title: const Text("DateRange"),
+          ),
         ],
       ),
     );
