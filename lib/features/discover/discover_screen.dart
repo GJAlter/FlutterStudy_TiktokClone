@@ -57,68 +57,73 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              GestureDetector(
-                onTap: widget.returnHome(),
-                child: const Padding(
-                  padding: EdgeInsets.only(
-                    left: Sizes.size5,
-                    right: Sizes.size18,
+          title: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.sm,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                GestureDetector(
+                  onTap: widget.returnHome(),
+                  child: const Padding(
+                    padding: EdgeInsets.only(
+                      left: Sizes.size5,
+                      right: Sizes.size18,
+                    ),
+                    child: FaIcon(FontAwesomeIcons.chevronLeft),
                   ),
-                  child: FaIcon(FontAwesomeIcons.chevronLeft),
                 ),
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: Sizes.size40,
-                  child: TextField(
-                    controller: textEditingController,
-                    onChanged: onSearchChanged,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey.shade200,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(Sizes.size3),
-                        borderSide: BorderSide.none,
+                Expanded(
+                  child: SizedBox(
+                    height: Sizes.size40,
+                    child: TextField(
+                      controller: textEditingController,
+                      onChanged: onSearchChanged,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.grey.shade200,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Sizes.size3),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(vertical: Sizes.size10),
+                        prefixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Gaps.h10,
+                            FaIcon(
+                              FontAwesomeIcons.magnifyingGlass,
+                              size: Sizes.size20,
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
+                        suffixIcon: isWriting
+                            ? GestureDetector(
+                                onTap: onSearchClearTap,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.solidCircleXmark,
+                                      size: Sizes.size18,
+                                      color: Colors.grey.shade500,
+                                    ),
+                                    Gaps.h5,
+                                  ],
+                                ),
+                              )
+                            : null,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(vertical: Sizes.size10),
-                      prefixIcon: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Gaps.h10,
-                          FaIcon(
-                            FontAwesomeIcons.magnifyingGlass,
-                            size: Sizes.size20,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                      suffixIcon: isWriting
-                          ? GestureDetector(
-                              onTap: onSearchClearTap,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.solidCircleXmark,
-                                    size: Sizes.size18,
-                                    color: Colors.grey.shade500,
-                                  ),
-                                  Gaps.h5,
-                                ],
-                              ),
-                            )
-                          : null,
                     ),
                   ),
                 ),
-              ),
-              Gaps.h20,
-              const FaIcon(FontAwesomeIcons.sliders),
-            ],
+                Gaps.h20,
+                const FaIcon(FontAwesomeIcons.sliders),
+              ],
+            ),
           ),
           elevation: 1,
           bottom: TabBar(
