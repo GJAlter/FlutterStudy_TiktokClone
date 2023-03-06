@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 
+import 'features/main_navigation/main_navigation_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]); //방향 고정
@@ -34,34 +36,8 @@ class TiktokApp extends StatelessWidget {
         ),
         splashColor: Colors.transparent,
       ),
-      home: LayoutBuilderCodeLab(),
-      // home: const MainNavigationScreen(),
+      home: const MainNavigationScreen(),
       // home: const SignUpScreen(),
-    );
-  }
-}
-
-class LayoutBuilderCodeLab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        width: size.width / 2,
-        child: LayoutBuilder(
-          builder: (context, constraints) => Container(
-            width: constraints.maxWidth,
-            height: constraints.maxHeight,
-            color: Colors.teal,
-            child: Center(
-              child: Text(
-                "${size.width} - ${constraints.maxWidth}",
-                style: TextStyle(color: Colors.white, fontSize: 98),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
