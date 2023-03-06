@@ -80,27 +80,27 @@ class _SettingScreenState extends State<SettingScreen> {
             value: isNotifications,
             onChanged: onNotificationChanged,
             activeColor: Theme.of(context).primaryColor,
-            title: Text("Enable Notifications"),
+            title: const Text("Enable Notifications"),
           ),
           SwitchListTile.adaptive(
             value: isNotifications,
             onChanged: onNotificationChanged,
             activeColor: Theme.of(context).primaryColor,
-            title: Text("Enable Notifications"),
+            title: const Text("Enable Notifications"),
           ),
           ListTile(
             onTap: () {
               showCupertinoDialog(
                 context: context,
                 builder: (context) => CupertinoAlertDialog(
-                  title: Text("Are you sure?"),
-                  content: Text("Pls dont go"),
+                  title: const Text("Are you sure?"),
+                  content: const Text("Pls dont go"),
                   actions: [
                     CupertinoDialogAction(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text(
+                      child: const Text(
                         "No",
                       ),
                     ),
@@ -109,7 +109,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         Navigator.of(context).pop();
                       },
                       isDestructiveAction: true,
-                      child: Text(
+                      child: const Text(
                         "Yes",
                       ),
                     )
@@ -117,7 +117,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               );
             },
-            title: Text(
+            title: const Text(
               "Log out(iOS)",
               style: TextStyle(
                 color: Colors.red,
@@ -129,14 +129,14 @@ class _SettingScreenState extends State<SettingScreen> {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: Text("Are you sure?"),
-                  content: Text("Pls dont go"),
+                  title: const Text("Are you sure?"),
+                  content: const Text("Pls dont go"),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text(
+                      child: const Text(
                         "No",
                       ),
                     ),
@@ -144,7 +144,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text(
+                      child: const Text(
                         "Yes",
                       ),
                     )
@@ -152,7 +152,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
               );
             },
-            title: Text(
+            title: const Text(
               "Log out(AOS)",
               style: TextStyle(
                 color: Colors.red,
@@ -164,28 +164,28 @@ class _SettingScreenState extends State<SettingScreen> {
               showCupertinoModalPopup(
                 context: context,
                 builder: (context) => CupertinoActionSheet(
-                  title: Text("Are you sure?"),
-                  message: Text("Pls dont go"),
+                  title: const Text("Are you sure?"),
+                  message: const Text("Pls dont go"),
                   actions: [
                     CupertinoActionSheetAction(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       isDefaultAction: true,
-                      child: Text("No"),
+                      child: const Text("No"),
                     ),
                     CupertinoActionSheetAction(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       isDestructiveAction: true,
-                      child: Text("Yes"),
+                      child: const Text("Yes"),
                     ),
                   ],
                 ),
               );
             },
-            title: Text(
+            title: const Text(
               "Log out(iOS Bottom)",
               style: TextStyle(
                 color: Colors.red,

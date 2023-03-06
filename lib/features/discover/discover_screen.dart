@@ -182,7 +182,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     Gaps.v10,
                     Text(
                       "${constraint.maxWidth} This is a very long captions for my tiktok that im upload just now currently.",
-                      style: TextStyle(fontSize: Sizes.size18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontSize: Sizes.size18, fontWeight: FontWeight.bold),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
