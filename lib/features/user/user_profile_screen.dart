@@ -230,8 +230,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             Positioned.fill(
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.cover,
-                                placeholder: "assets/images/loading.jpg",
-                                image: "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                                placeholder: "assets/images/image1.jpeg",
+                                image:
+                                    "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
                               ),
                             ),
                             Positioned(

@@ -33,6 +33,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool isPaused = false;
   bool isSeeMore = false;
   bool isDisposed = false;
+  bool isMuted = true;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -99,6 +100,13 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     );
 
     onPauseTap();
+  }
+
+  void onMuteTap() async {
+    await videoPlayerController.setVolume(100);
+    setState(() {
+      isMuted = !isMuted;
+    });
   }
 
   @override
@@ -272,10 +280,17 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             ),
           ),
           Positioned(
+            top: Sizes.size20,
+            right: Sizes.size20,
+            child: GestureDetector(
+              onTap: onMuteTap,
               child: FaIcon(
-            FontAwesomeIcons.volumeHigh,
-            color: Colors.white,
-          ))
+                isMuted ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                color: Colors.white,
+                size: Sizes.size20,
+              ),
+            ),
+          ),
         ],
       ),
     );
