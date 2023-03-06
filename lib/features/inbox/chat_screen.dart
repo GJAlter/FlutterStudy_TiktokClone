@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
             children: [
               const CircleAvatar(
                 foregroundImage: NetworkImage(
-                  "https://i.stack.imgur.com/frlIf.png",
+                  "https://avatars.githubusercontent.com/u/15954278?v=4",
                 ),
                 radius: Sizes.size24,
                 child: Text("Jun"),

@@ -180,7 +180,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     child: Row(
                       children: [
                         const CircleAvatar(
-                          backgroundImage: NetworkImage("https://i.stack.imgur.com/frlIf.png"),
+                          backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
                           radius: 14,
                         ),
                         Gaps.h4,

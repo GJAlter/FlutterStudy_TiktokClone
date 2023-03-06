@@ -41,7 +41,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
       onTap: openChat,
       leading: const CircleAvatar(
         radius: 30,
-        foregroundImage: NetworkImage("https://i.stack.imgur.com/frlIf.png"),
+        foregroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
         child: Text("Jun"),
       ),
       title: Row(

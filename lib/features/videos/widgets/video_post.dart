@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -45,6 +46,9 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   void initVideoPlayer() async {
     await videoPlayerController.initialize();
     await videoPlayerController.setLooping(true);
+    if (kIsWeb) {
+      await videoPlayerController.setVolume(0);
+    }
     videoPlayerController.addListener(onVideoChange);
     setState(() {});
   }
@@ -245,7 +249,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                 const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
-                  foregroundImage: NetworkImage("https://i.stack.imgur.com/frlIf.png"),
+                  foregroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
                   child: Text("Jun"),
                 ),
                 Gaps.v24,
@@ -267,6 +271,11 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
               ],
             ),
           ),
+          Positioned(
+              child: FaIcon(
+            FontAwesomeIcons.volumeHigh,
+            color: Colors.white,
+          ))
         ],
       ),
     );
