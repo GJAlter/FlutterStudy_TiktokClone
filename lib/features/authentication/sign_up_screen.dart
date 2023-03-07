@@ -32,7 +32,7 @@ class SignUpScreen extends StatelessWidget {
                     Gaps.v80,
                     Text(
                       "Sign up for Tiktok",
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style: Theme.of(context).textTheme.headlineSmall,
                       // style: TextStyle(
                       //   fontSize: Sizes.size24,
                       //   fontWeight: FontWeight.w700,
@@ -105,7 +105,7 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () => onLoginTap(context),
                     child: Text(
                       "Log in",
-                      style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w700),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).primaryColor),
                     ),
                   ),
                 ],
