@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/login_screen.dart';
@@ -32,7 +33,12 @@ class SignUpScreen extends StatelessWidget {
                     Gaps.v80,
                     Text(
                       "Sign up for Tiktok",
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: GoogleFonts.notoSans(
+                        textStyle: TextStyle(
+                          fontSize: Sizes.size24,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
                       // style: TextStyle(
                       //   fontSize: Sizes.size24,
                       //   fontWeight: FontWeight.w700,
@@ -105,7 +111,10 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () => onLoginTap(context),
                     child: Text(
                       "Log in",
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                 ],
