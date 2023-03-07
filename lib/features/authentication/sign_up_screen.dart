@@ -105,7 +105,7 @@ class SignUpScreen extends StatelessWidget {
                     onTap: () => onLoginTap(context),
                     child: Text(
                       "Log in",
-                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).primaryColor),
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
