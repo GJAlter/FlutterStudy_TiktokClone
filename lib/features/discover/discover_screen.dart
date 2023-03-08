@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/breakpoints.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 final tabs = ["Top", "Users", "Videos", "Sounds", "LIVE", "Shopping", "Brands"];
 
@@ -82,7 +83,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       onChanged: onSearchChanged,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Colors.grey.shade200,
+                        fillColor: isDarkMode(context) ? Colors.grey.shade800 : Colors.grey.shade200,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(Sizes.size3),
                           borderSide: BorderSide.none,
@@ -131,13 +132,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             splashFactory: NoSplash.splashFactory,
             padding: const EdgeInsets.symmetric(horizontal: Sizes.size16),
             isScrollable: true,
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.grey.shade500,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),
-            indicatorColor: Colors.black,
+            indicatorColor: Theme.of(context).tabBarTheme.indicatorColor,
             tabs: [
               for (var tab in tabs) Tab(text: tab),
             ],
@@ -174,15 +173,14 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         child: FadeInImage.assetNetwork(
                           fit: BoxFit.cover,
                           placeholder: "assets/images/image1.jpeg",
-                          image:
-                              "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                          image: "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
                         ),
                       ),
                     ),
                     Gaps.v10,
-                    Text(
-                      "${constraint.maxWidth} This is a very long captions for my tiktok that im upload just now currently.",
-                      style: const TextStyle(fontSize: Sizes.size18, fontWeight: FontWeight.bold),
+                    const Text(
+                      "This is a very long captions for my tiktok that im upload just now currently.",
+                      style: TextStyle(fontSize: Sizes.size18, fontWeight: FontWeight.bold),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -190,7 +188,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     if (constraint.maxWidth > 330 || constraint.maxWidth < 300)
                       DefaultTextStyle(
                         style: TextStyle(
-                          color: Colors.grey.shade600,
+                          color: isDarkMode(context) ? Colors.grey.shade300 : Colors.grey.shade600,
                           fontWeight: FontWeight.w600,
                         ),
                         child: Row(

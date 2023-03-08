@@ -23,6 +23,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SafeArea(
         child: DefaultTabController(
           length: 2,
@@ -44,6 +45,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
+                      Gaps.v20,
                       const CircleAvatar(
                         radius: 50,
                         foregroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
@@ -231,8 +233,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.cover,
                                 placeholder: "assets/images/image1.jpeg",
-                                image:
-                                    "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                                image: "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
                               ),
                             ),
                             Positioned(

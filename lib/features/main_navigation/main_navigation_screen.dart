@@ -6,6 +6,7 @@ import 'package:tiktok_clone/features/inbox/inbox_screen.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/navigation_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok_clone/features/videos/video_timeline_screen.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/gaps.dart';
 import '../user/user_profile_screen.dart';
@@ -48,7 +49,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.black,
+      backgroundColor: isDarkMode(context) ? Colors.black : Colors.white,
       body: Stack(
         children: [
           Offstage(
@@ -72,7 +73,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: isHome() ? Colors.black : Colors.white,
+        color: isHome() || isDarkMode(context) ? Colors.black : Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(Sizes.size12),
           child: Row(

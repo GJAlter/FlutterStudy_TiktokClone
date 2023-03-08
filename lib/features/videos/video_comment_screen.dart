@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../constants/gaps.dart';
 
@@ -35,7 +36,8 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
+    final isDark = isDarkMode(context);
     return Container(
       height: size.height * 0.7,
       clipBehavior: Clip.hardEdge,
@@ -43,9 +45,9 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
         borderRadius: BorderRadius.circular(Sizes.size14),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: isDark ? null : Colors.grey.shade50,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: isDark ? null : Colors.grey.shade50,
           automaticallyImplyLeading: false,
           title: const Text("22686 comments"),
           actions: [
@@ -74,9 +76,10 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                   itemBuilder: (context, index) => Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 18,
                         child: Text("Jun"),
+                        backgroundColor: isDark ? Colors.grey.shade600 : null,
                       ),
                       Gaps.h10,
                       Expanded(
@@ -121,7 +124,6 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: Sizes.size20,
@@ -155,7 +157,7 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
+                                fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size12,
                                 ),
@@ -166,17 +168,17 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.at,
-                                        color: Colors.grey.shade800,
+                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
                                       ),
                                       Gaps.h14,
                                       FaIcon(
                                         FontAwesomeIcons.gift,
-                                        color: Colors.grey.shade800,
+                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
                                       ),
                                       Gaps.h14,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: Colors.grey.shade800,
+                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
                                       ),
                                     ],
                                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/sizes.dart';
+import '../../../utils.dart';
 
 class PostVideoButton extends StatelessWidget {
   final bool isHome;
@@ -42,7 +43,7 @@ class PostVideoButton extends StatelessWidget {
           Container(
             height: 33,
             decoration: BoxDecoration(
-              color: isHome ? Colors.white : Colors.black,
+              color: isHome || isDarkMode(context) ? Colors.white : Colors.black,
               borderRadius: BorderRadius.circular(
                 Sizes.size6,
               ),
@@ -56,7 +57,7 @@ class PostVideoButton extends StatelessWidget {
             child: Center(
               child: FaIcon(
                 FontAwesomeIcons.plus,
-                color: isHome ? Colors.black : Colors.white,
+                color: isHome || isDarkMode(context) ? Colors.black : Colors.white,
                 size: Sizes.size16,
               ),
             ),
