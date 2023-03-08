@@ -13,8 +13,9 @@ import '../../generated/l10n.dart';
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
-  void onLoginTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+  void onLoginTap(BuildContext context) async {
+    final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+    print(result);
   }
 
   void onEmailAndPasswordTap(BuildContext context) {

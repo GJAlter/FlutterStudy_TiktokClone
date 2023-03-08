@@ -10,7 +10,7 @@
       },
       "when": {
         "type": "DateTime",
-        "format": "yQQQQ / LLLL : Hm",
+        "format": "M",
         "isCustomDateFormat": "true"
       }
     }
