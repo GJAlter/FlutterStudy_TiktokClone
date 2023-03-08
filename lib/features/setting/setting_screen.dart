@@ -27,7 +27,7 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: ListView(
         children: [
-          AboutListTile(),
+          const AboutListTile(),
           ListTile(
             onTap: () => showLicensePage(
               context: context,

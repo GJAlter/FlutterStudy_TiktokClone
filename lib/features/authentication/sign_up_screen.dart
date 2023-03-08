@@ -64,11 +64,11 @@ class SignUpScreen extends StatelessWidget {
                         onTap: () => onEmailAndPasswordTap(context),
                       ),
                       Gaps.v14,
-                      AuthButton(icon: FaIcon(FontAwesomeIcons.facebook), text: S.of(context).authFacebook),
+                      AuthButton(icon: const FaIcon(FontAwesomeIcons.facebook), text: S.of(context).authFacebook),
                       Gaps.v14,
-                      AuthButton(icon: FaIcon(FontAwesomeIcons.apple), text: S.of(context).authApple),
+                      AuthButton(icon: const FaIcon(FontAwesomeIcons.apple), text: S.of(context).authApple),
                       Gaps.v14,
-                      AuthButton(icon: FaIcon(FontAwesomeIcons.google), text: S.of(context).authGoogle),
+                      AuthButton(icon: const FaIcon(FontAwesomeIcons.google), text: S.of(context).authGoogle),
                     ],
                     if (orientation == Orientation.landscape) ...[
                       Row(
@@ -82,15 +82,15 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           Gaps.h14,
                           Expanded(
-                            child: AuthButton(icon: FaIcon(FontAwesomeIcons.facebook), text: S.of(context).authFacebook),
+                            child: AuthButton(icon: const FaIcon(FontAwesomeIcons.facebook), text: S.of(context).authFacebook),
                           ),
                           Gaps.h14,
                           Expanded(
-                            child: AuthButton(icon: FaIcon(FontAwesomeIcons.apple), text: S.of(context).authApple),
+                            child: AuthButton(icon: const FaIcon(FontAwesomeIcons.apple), text: S.of(context).authApple),
                           ),
                           Gaps.h14,
                           Expanded(
-                            child: AuthButton(icon: FaIcon(FontAwesomeIcons.google), text: S.of(context).authGoogle),
+                            child: AuthButton(icon: const FaIcon(FontAwesomeIcons.google), text: S.of(context).authGoogle),
                           ),
                         ],
                       ),

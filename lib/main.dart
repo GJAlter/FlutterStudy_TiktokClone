@@ -17,12 +17,12 @@ class TiktokApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    S.load(Locale("ko"));
+    S.load(const Locale("ko"));
     // S.load(Locale("en"));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "TikTok Clone",
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

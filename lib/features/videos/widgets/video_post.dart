@@ -274,7 +274,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   onTap: onCommentTap,
                 ),
                 Gaps.v24,
-                VideoButton(
+                const VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 ),
