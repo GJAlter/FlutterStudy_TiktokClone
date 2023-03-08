@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,11 +16,32 @@ class SignUpScreen extends StatelessWidget {
 
   void onLoginTap(BuildContext context) async {
     final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
-    print(result);
+    if (kDebugMode) {
+      print(result);
+    }
   }
 
   void onEmailAndPasswordTap(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const UsernameScreen()));
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: const Duration(seconds: 1),
+        reverseTransitionDuration: const Duration(seconds: 1),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final offsetAnimation = Tween(
+            begin: Offset(0, -1),
+            end: Offset.zero,
+          ).animate(animation);
+          return SlideTransition(
+            position: offsetAnimation,
+            child: FadeTransition(
+              opacity: animation,
+              child: child,
+            ),
+          );
+        },
+        pageBuilder: (context, animation, secondaryAnimation) => const UsernameScreen(),
+      ),
+    );
   }
 
   @override
