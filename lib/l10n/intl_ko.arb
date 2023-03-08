@@ -1,0 +1,24 @@
+{
+  "test": "테스트",
+  "signUpTitle": "{appName}에 가입하세요 {when}",
+  "loginTitle": "Log into your {appName} account",
+  "@loginTitle": {
+    "description": "The title people people see when they open the log in screen.",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "example": "Tiktok"
+      }
+    }
+  },
+  "signUpSubtitle": "Create a profile, follow other accounts, make your own {videoCount, plural, =0{no videos} =1{video} other{videos}}, and more.",
+  "authEmail": "Use email & password",
+  "authFacebook": "Continue with Facebook",
+  "authApple": "Continue with Apple",
+  "authGoogle": "Continue with Google",
+  "alreadyHaveAnCount": "Already have an count?",
+  "logIn": "Log in {gender, select, male{sir} female{madam} other{human}}",
+  "likeCount": "{value}",
+  "commentCount": "{value}",
+  "commentTitle": "{value} {value2, plural, =1{comment} other{comments}}"
+}

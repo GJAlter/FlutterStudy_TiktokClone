@@ -8,6 +8,8 @@ import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../../generated/l10n.dart';
+
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
   final int index;
@@ -261,18 +263,18 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   child: Text("Jun"),
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                  text: S.of(context).likeCount(23456123447123),
                 ),
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidComment,
-                  text: "33.0K",
+                  text: S.of(context).commentCount(56780),
                   onTap: onCommentTap,
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.share,
                   text: "Share",
                 ),
