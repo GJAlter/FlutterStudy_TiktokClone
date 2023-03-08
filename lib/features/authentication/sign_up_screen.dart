@@ -1,47 +1,47 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok_clone/utils.dart';
 
 import '../../generated/l10n.dart';
 
 class SignUpScreen extends StatelessWidget {
+  static String routeName = "/";
   const SignUpScreen({Key? key}) : super(key: key);
 
   void onLoginTap(BuildContext context) async {
-    final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
-    if (kDebugMode) {
-      print(result);
-    }
+    // final result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+    // if (kDebugMode) {
+    //   print(result);
+    // }
+    Navigator.of(context).pushNamed("/login");
   }
 
   void onEmailAndPasswordTap(BuildContext context) {
-    Navigator.of(context).push(
-      PageRouteBuilder(
-        transitionDuration: const Duration(seconds: 1),
-        reverseTransitionDuration: const Duration(seconds: 1),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final offsetAnimation = Tween(
-            begin: Offset(0, -1),
-            end: Offset.zero,
-          ).animate(animation);
-          return SlideTransition(
-            position: offsetAnimation,
-            child: FadeTransition(
-              opacity: animation,
-              child: child,
-            ),
-          );
-        },
-        pageBuilder: (context, animation, secondaryAnimation) => const UsernameScreen(),
-      ),
-    );
+    // Navigator.of(context).push(
+    //   PageRouteBuilder(
+    //     transitionDuration: const Duration(seconds: 1),
+    //     reverseTransitionDuration: const Duration(seconds: 1),
+    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
+    //       final offsetAnimation = Tween(
+    //         begin: Offset(0, -1),
+    //         end: Offset.zero,
+    //       ).animate(animation);
+    //       return SlideTransition(
+    //         position: offsetAnimation,
+    //         child: FadeTransition(
+    //           opacity: animation,
+    //           child: child,
+    //         ),
+    //       );
+    //     },
+    //     pageBuilder: (context, animation, secondaryAnimation) => const UsernameScreen(),
+    //   ),
+    // );
+    Navigator.of(context).pushNamed("/username");
   }
 
   @override
