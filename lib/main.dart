@@ -6,6 +6,7 @@ import 'package:tiktok_clone/features/authentication/login_screen.dart';
 import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 
+import 'features/authentication/email_screen.dart';
 import 'features/authentication/sign_up_screen.dart';
 
 void main() async {
@@ -99,8 +100,9 @@ class TiktokApp extends StatelessWidget {
       initialRoute: SignUpScreen.routeName,
       routes: {
         SignUpScreen.routeName: (context) => SignUpScreen(),
-        "/username": (context) => UsernameScreen(),
-        "/login" "": (context) => LoginScreen(),
+        UsernameScreen.routeName: (context) => UsernameScreen(),
+        "/login": (context) => LoginScreen(),
+        "/email": (context) => EmailScreen(),
       },
     );
   }
