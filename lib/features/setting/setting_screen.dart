@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -26,12 +27,8 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: ListView(
         children: [
+          AboutListTile(),
           ListTile(
-            // onTap: () => showAboutDialog(
-            //   context: context,
-            //   applicationVersion: "1.0",
-            //   applicationLegalese: "이 앱은 클론 코딩 앱입니다.",
-            // ),
             onTap: () => showLicensePage(
               context: context,
             ),
@@ -51,9 +48,12 @@ class _SettingScreenState extends State<SettingScreen> {
                 firstDate: DateTime(1990),
                 lastDate: DateTime(2030),
               );
+              if (!mounted) return;
               final time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
-              print("$date $time");
+              if (kDebugMode) {
+                print("$date $time");
+              }
             },
             title: const Text(
               "What Time?",
@@ -72,7 +72,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   );
                 },
               );
-              print(dateRange);
+              if (kDebugMode) {
+                print(dateRange);
+              }
             },
             title: const Text("DateRange"),
           ),
