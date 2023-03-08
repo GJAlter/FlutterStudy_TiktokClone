@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 
 import 'features/authentication/sign_up_screen.dart';
@@ -21,32 +20,36 @@ class TiktokApp extends StatelessWidget {
       title: "TikTok Clone",
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        primaryColor: const Color(0xFFE9435A),
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          titleTextStyle: TextStyle(
-            color: Colors.black,
-            fontSize: Sizes.size18,
-            fontWeight: FontWeight.w600,
+          primaryColor: const Color(0xFFE9435A),
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            titleTextStyle: TextStyle(
+              color: Colors.black,
+              fontSize: Sizes.size18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        textSelectionTheme: const TextSelectionThemeData(
-          cursorColor: Color(0xFFE9435A),
-        ),
-        textTheme: GoogleFonts.itimTextTheme(),
-        splashColor: Colors.transparent,
-      ),
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color(0xFFE9435A),
+          ),
+          splashColor: Colors.transparent,
+          textTheme: Typography.blackCupertino),
       darkTheme: ThemeData(
-        textTheme: GoogleFonts.itimTextTheme(
-          ThemeData(brightness: Brightness.dark).textTheme,
-        ),
         primaryColor: const Color(0xFFE9435A),
         scaffoldBackgroundColor: Colors.black,
         brightness: Brightness.dark,
+        textTheme: Typography.whiteRedwoodCity,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.grey.shade900,
+        ),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: Colors.grey.shade900,
+        ),
       ),
+
       // home: const MainNavigationScreen(),
       home: const SignUpScreen(),
     );

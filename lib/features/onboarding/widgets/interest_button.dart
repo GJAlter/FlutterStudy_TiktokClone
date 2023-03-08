@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/utils.dart';
 
 import '../../../constants/sizes.dart';
 
@@ -38,7 +39,11 @@ class _InterestButtonState extends State<InterestButton> {
             Sizes.size32,
           ),
           border: Border.all(color: Colors.black.withOpacity(0.1)),
-          color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+          color: isSelected
+              ? Theme.of(context).primaryColor
+              : isDarkMode(context)
+                  ? Colors.grey.shade700
+                  : Colors.white,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),

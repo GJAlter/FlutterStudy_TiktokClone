@@ -3,6 +3,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/onboarding/tutorial_screen.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/interest_button.dart';
+import 'package:tiktok_clone/utils.dart';
 
 const interests = [
   "Daily Life",
@@ -95,9 +96,11 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     vertical: Sizes.size16,
                   ),
                   decoration: BoxDecoration(
-                      border: Border.all(
-                    color: Colors.grey.shade300,
-                  )),
+                    border: Border.all(
+                      color: isDarkMode(context) ? Colors.grey.shade700 : Colors.grey.shade300,
+                    ),
+                    color: isDarkMode(context) ? Colors.grey.shade700 : null,
+                  ),
                   child: const Text(
                     "Skip",
                     textAlign: TextAlign.center,
