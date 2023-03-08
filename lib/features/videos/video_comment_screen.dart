@@ -78,8 +78,8 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
                     children: [
                       CircleAvatar(
                         radius: 18,
-                        child: Text("Jun"),
                         backgroundColor: isDark ? Colors.grey.shade600 : null,
+                        child: const Text("Jun"),
                       ),
                       Gaps.h10,
                       Expanded(
@@ -123,85 +123,86 @@ class _VideoCommentScreenState extends State<VideoCommentScreen> {
               Positioned(
                 bottom: 0,
                 width: size.width,
-                child: BottomAppBar(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: Sizes.size20,
-                      vertical: Sizes.size10,
-                    ),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.grey.shade500,
-                          foregroundColor: Colors.white,
-                          child: const Text("Jun"),
-                        ),
-                        Gaps.h10,
-                        Expanded(
-                          child: SizedBox(
-                            height: Sizes.size44,
-                            child: TextField(
-                              onTap: onStartWriting,
-                              expands: true,
-                              minLines: null,
-                              maxLines: null,
-                              textInputAction: TextInputAction.newline,
-                              cursorColor: Theme.of(context).primaryColor,
-                              decoration: InputDecoration(
-                                hintText: "Write a comment...",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    Sizes.size12,
-                                  ),
-                                  borderSide: BorderSide.none,
+                child: Container(
+                  color: Colors.grey.shade900,
+                  padding: const EdgeInsets.only(
+                    left: Sizes.size24,
+                    right: Sizes.size24,
+                    bottom: Sizes.size28,
+                    top: Sizes.size10,
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey.shade500,
+                        foregroundColor: Colors.white,
+                        child: const Text("Jun"),
+                      ),
+                      Gaps.h10,
+                      Expanded(
+                        child: SizedBox(
+                          height: Sizes.size44,
+                          child: TextField(
+                            onTap: onStartWriting,
+                            expands: true,
+                            minLines: null,
+                            maxLines: null,
+                            textInputAction: TextInputAction.newline,
+                            cursorColor: Theme.of(context).primaryColor,
+                            decoration: InputDecoration(
+                              hintText: "Write a comment...",
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  Sizes.size12,
                                 ),
-                                filled: true,
-                                fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
-                                contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: Sizes.size12,
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: Sizes.size14),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      FaIcon(
-                                        FontAwesomeIcons.at,
-                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
-                                      ),
-                                      Gaps.h14,
-                                      FaIcon(
-                                        FontAwesomeIcons.gift,
-                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
-                                      ),
-                                      Gaps.h14,
-                                      FaIcon(
-                                        FontAwesomeIcons.faceSmile,
-                                        color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
-                                      ),
-                                    ],
-                                  ),
+                                borderSide: BorderSide.none,
+                              ),
+                              filled: true,
+                              fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: Sizes.size12,
+                              ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: Sizes.size14),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    FaIcon(
+                                      FontAwesomeIcons.at,
+                                      color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
+                                    ),
+                                    Gaps.h14,
+                                    FaIcon(
+                                      FontAwesomeIcons.gift,
+                                      color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
+                                    ),
+                                    Gaps.h14,
+                                    FaIcon(
+                                      FontAwesomeIcons.faceSmile,
+                                      color: isDark ? Colors.grey.shade500 : Colors.grey.shade800,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        if (isWriting)
-                          Row(
-                            children: [
-                              Gaps.h14,
-                              GestureDetector(
-                                onTap: stopWriting,
-                                child: FaIcon(
-                                  FontAwesomeIcons.circleArrowUp,
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                      ),
+                      if (isWriting)
+                        Row(
+                          children: [
+                            Gaps.h14,
+                            GestureDetector(
+                              onTap: stopWriting,
+                              child: FaIcon(
+                                FontAwesomeIcons.circleArrowUp,
+                                color: Theme.of(context).primaryColor,
                               ),
-                            ],
-                          ),
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
                 ),
               )

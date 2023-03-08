@@ -78,66 +78,63 @@ class _InterestsScreenState extends State<InterestsScreen> {
           child: const Text("Choose your interests"),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        elevation: 1,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            bottom: Sizes.size40,
-            top: Sizes.size16,
-            left: Sizes.size24,
-            right: Sizes.size24,
-          ),
-          child: Row(
-            children: [
-              Gaps.h10,
-              Expanded(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(
+          bottom: Sizes.size40,
+          top: Sizes.size16,
+          left: Sizes.size24,
+          right: Sizes.size24,
+        ),
+        child: Row(
+          children: [
+            Gaps.h10,
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size16,
+                ),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isDarkMode(context) ? Colors.grey.shade700 : Colors.grey.shade300,
+                  ),
+                  color: isDarkMode(context) ? Colors.grey.shade700 : null,
+                ),
+                child: const Text(
+                  "Skip",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: Sizes.size16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            Gaps.h20,
+            Expanded(
+              child: GestureDetector(
+                onTap: onNextTap,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     vertical: Sizes.size16,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: isDarkMode(context) ? Colors.grey.shade700 : Colors.grey.shade300,
-                    ),
-                    color: isDarkMode(context) ? Colors.grey.shade700 : null,
+                    color: Theme.of(context).primaryColor,
                   ),
                   child: const Text(
-                    "Skip",
+                    "Next",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: Sizes.size16,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
-              Gaps.h20,
-              Expanded(
-                child: GestureDetector(
-                  onTap: onNextTap,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: Sizes.size16,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    child: const Text(
-                      "Next",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: Sizes.size16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Gaps.h10,
-            ],
-          ),
+            ),
+            Gaps.h10,
+          ],
         ),
       ),
       body: Scrollbar(

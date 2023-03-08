@@ -194,7 +194,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
             child: Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).appBarTheme.backgroundColor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(Sizes.size5),
                   bottomRight: Radius.circular(Sizes.size5),
                 ),
