@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/authentication/login_screen.dart';
-import 'package:tiktok_clone/features/authentication/username_screen.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
-
-import 'features/authentication/email_screen.dart';
-import 'features/authentication/sign_up_screen.dart';
+import 'package:tiktok_clone/router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +18,8 @@ class TiktokApp extends StatelessWidget {
   Widget build(BuildContext context) {
     S.load(const Locale("ko"));
     // S.load(Locale("en"));
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: "TikTok Clone",
       localizationsDelegates: const [
@@ -97,13 +94,6 @@ class TiktokApp extends StatelessWidget {
       ),
 
       // home: const MainNavigationScreen(),
-      initialRoute: SignUpScreen.routeName,
-      routes: {
-        SignUpScreen.routeName: (context) => SignUpScreen(),
-        UsernameScreen.routeName: (context) => UsernameScreen(),
-        "/login": (context) => LoginScreen(),
-        "/email": (context) => EmailScreen(),
-      },
     );
   }
 }
