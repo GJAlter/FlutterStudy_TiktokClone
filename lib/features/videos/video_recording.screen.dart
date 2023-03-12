@@ -11,7 +11,19 @@ class VideoRecordingScreen extends StatefulWidget {
   State<VideoRecordingScreen> createState() => _VideoRecordingScreenState();
 }
 
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
+class _VideoRecordingScreenState extends State<VideoRecordingScreen> with TickerProviderStateMixin {
+  late final AnimationController _recordingButtonAnimationController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 100),
+  );
+  late final AnimationController _recordingProgressAnimationController = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 10),
+    lowerBound: 0.0,
+    upperBound: 1.0,
+  );
+  late final Animation<double> _recordingButtonAnimation = Tween(begin: 1.0, end: 1.3).animate(_recordingButtonAnimationController);
+
   late CameraController _cameraController;
 
   bool _isGrantedPermissions = false;
@@ -71,10 +83,28 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     setState(() {});
   }
 
+  void _startRecording(TapDownDetails _) {
+    _recordingButtonAnimationController.forward();
+    _recordingProgressAnimationController.forward();
+  }
+
+  void _stopRecording() {
+    _recordingButtonAnimationController.reverse();
+    _recordingProgressAnimationController.reset();
+  }
+
   @override
   void initState() {
     super.initState();
     initPermissions();
+    _recordingProgressAnimationController.addListener(() {
+      setState(() {});
+    });
+    _recordingProgressAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _stopRecording();
+      }
+    });
   }
 
   @override
@@ -124,6 +154,38 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: Sizes.size40,
+                    child: ScaleTransition(
+                      scale: _recordingButtonAnimation,
+                      child: GestureDetector(
+                        onTapDown: _startRecording,
+                        onTapUp: (details) => _stopRecording(),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              width: Sizes.size72 + Sizes.size10,
+                              height: Sizes.size72 + Sizes.size10,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: Sizes.size4,
+                                value: _recordingProgressAnimationController.value,
+                              ),
+                            ),
+                            Container(
+                              width: Sizes.size72,
+                              height: Sizes.size72,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red.shade400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],
