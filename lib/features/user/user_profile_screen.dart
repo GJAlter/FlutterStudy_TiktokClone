@@ -51,7 +51,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       Gaps.v20,
                       CircleAvatar(
                         radius: 50,
-                        foregroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
+                        foregroundImage: const NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
                         child: Text(widget.username),
                       ),
                       Gaps.v20,
@@ -60,7 +60,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         children: [
                           Text(
                             "@${widget.username}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: Sizes.size18,
                             ),
