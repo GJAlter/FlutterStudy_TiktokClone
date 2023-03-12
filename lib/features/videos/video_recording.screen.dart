@@ -14,7 +14,7 @@ class VideoRecordingScreen extends StatefulWidget {
   State<VideoRecordingScreen> createState() => _VideoRecordingScreenState();
 }
 
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> with TickerProviderStateMixin {
+class _VideoRecordingScreenState extends State<VideoRecordingScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   late final AnimationController _recordingButtonAnimationController = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 100),
@@ -54,9 +54,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     final micDenied = micPermission.isDenied || micPermission.isPermanentlyDenied;
 
     if (!cameraDenied && !micDenied) {
+      await initCamera();
       setState(() {
         _isGrantedPermissions = true;
-        initCamera();
       });
     }
   }
@@ -137,6 +137,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
   void initState() {
     super.initState();
     initPermissions();
+    WidgetsBinding.instance.addObserver(this);
     _recordingProgressAnimationController.addListener(() {
       setState(() {});
     });
@@ -153,6 +154,16 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     _recordingProgressAnimationController.dispose();
     _cameraController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_isGrantedPermissions) return;
+    if (state == AppLifecycleState.inactive && _cameraController.value.isInitialized) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      initCamera();
+    }
   }
 
   @override
