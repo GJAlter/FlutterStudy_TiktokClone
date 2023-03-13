@@ -26,12 +26,15 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     upperBound: 1.0,
   );
   late final Animation<double> _recordingButtonAnimation = Tween(begin: 1.0, end: 1.3).animate(_recordingButtonAnimationController);
+  late final double _maxZoomLevel, _minZoomLevel;
 
   late CameraController _cameraController;
 
   bool _isGrantedPermissions = false;
   bool _isSelfieMode = false;
   int _currentFlashMode = 0;
+  double _dragStartPosition = 0.0;
+  double _currentZoomLevel = 1.0, _tempZoomLevel = 0.0;
 
   final List<FlashMode> _flashModes = [
     FlashMode.off,
@@ -69,6 +72,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     await _cameraController.initialize();
     await _cameraController.prepareForVideoRecording();
     _currentFlashMode = _flashModes.indexOf(_cameraController.value.flashMode);
+    _maxZoomLevel = await _cameraController.getMaxZoomLevel();
+    _minZoomLevel = await _cameraController.getMinZoomLevel();
+
     setState(() {});
   }
 
@@ -89,6 +95,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
 
   Future<void> _startRecording(TapDownDetails _) async {
     if (_cameraController.value.isRecordingVideo) return;
+
+    return;
 
     await _cameraController.startVideoRecording();
     _recordingButtonAnimationController.forward();
@@ -131,6 +139,33 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
         ),
       ),
     );
+  }
+
+  void zoom(DragUpdateDetails details) {
+    if (_dragStartPosition == 0.0) {
+      _dragStartPosition = details.globalPosition.dx;
+    }
+    final currentPosition = details.globalPosition.dx;
+    final displayWidth = MediaQuery.of(context).size.width - 60;
+    if ((_dragStartPosition - currentPosition).abs() <= 10) return;
+    if (currentPosition > MediaQuery.of(context).size.width - 40) return;
+
+    if (_dragStartPosition < currentPosition) {
+      final movableRange = displayWidth - _dragStartPosition + 10;
+      final movableLevel = (movableRange / 10).floor();
+      final zoomPer10 = (_maxZoomLevel - _currentZoomLevel) / movableLevel;
+      final newZoomLevel = ((currentPosition - _dragStartPosition + 10) / 10).floor() * zoomPer10;
+      if (newZoomLevel <= _maxZoomLevel) {
+        _cameraController.setZoomLevel(newZoomLevel);
+        _tempZoomLevel = newZoomLevel;
+      }
+    }
+  }
+
+  void resetDragPosition(DragEndDetails _) {
+    _dragStartPosition = 0.0;
+    _currentZoomLevel = _tempZoomLevel;
+    _tempZoomLevel = 0.0;
   }
 
   @override
@@ -225,6 +260,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
                           const Spacer(),
                           GestureDetector(
                             onTapDown: _startRecording,
+                            onPanUpdate: zoom,
+                            onPanEnd: resetDragPosition,
                             onTapUp: (details) => _stopRecording(),
                             child: Stack(
                               alignment: Alignment.center,
