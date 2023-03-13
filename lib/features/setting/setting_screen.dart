@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone/common/widgets/video_config/video_config.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -83,6 +84,14 @@ class _SettingScreenState extends State<SettingScreen> {
             onChanged: onNotificationChanged,
             activeColor: Theme.of(context).primaryColor,
             title: const Text("Enable Notifications"),
+          ),
+          SwitchListTile.adaptive(
+            value: VideoConfigData.of(context).autoMuted,
+            onChanged: (value) {
+              VideoConfigData.of(context).toggleMuted();
+            },
+            activeColor: Theme.of(context).primaryColor,
+            title: const Text("Auto Mute"),
           ),
           SwitchListTile.adaptive(
             value: isNotifications,

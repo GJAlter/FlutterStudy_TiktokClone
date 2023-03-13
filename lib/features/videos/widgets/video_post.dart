@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/common/widgets/video_config/video_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/video_comment_screen.dart';
@@ -107,7 +108,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   void onMuteTap() async {
     await videoPlayerController.setVolume(100);
     setState(() {
-      isMuted = !isMuted;
+      VideoConfigData.of(context).toggleMuted();
     });
   }
 
@@ -282,14 +283,14 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             ),
           ),
           Positioned(
-            top: Sizes.size20,
-            right: Sizes.size20,
+            top: Sizes.size48,
+            left: Sizes.size20,
             child: GestureDetector(
               onTap: onMuteTap,
               child: FaIcon(
-                isMuted ? FontAwesomeIcons.volumeXmark : FontAwesomeIcons.volumeHigh,
+                VideoConfigData.of(context).autoMuted ? FontAwesomeIcons.volumeHigh : FontAwesomeIcons.volumeOff,
                 color: Colors.white,
-                size: Sizes.size20,
+                size: Sizes.size24,
               ),
             ),
           ),
