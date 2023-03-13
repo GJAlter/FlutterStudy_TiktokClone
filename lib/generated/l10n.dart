@@ -60,16 +60,13 @@ class S {
     );
   }
 
-  /// `Sign up for {appName} {when}`
-  String signUpTitle(String appName, DateTime when) {
-    final DateFormat whenDateFormat = DateFormat.M(Intl.getCurrentLocale());
-    final String whenString = whenDateFormat.format(when);
-
+  /// `Sign up for {appName}`
+  String signUpTitle(String appName) {
     return Intl.message(
-      'Sign up for $appName $whenString',
+      'Sign up for $appName',
       name: 'signUpTitle',
       desc: 'The title people see when they open the app for the first time.',
-      args: [appName, whenString],
+      args: [appName],
     );
   }
 

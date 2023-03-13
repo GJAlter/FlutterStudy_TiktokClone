@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +10,8 @@ import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
+  static const routeName = "postVideo";
+  static const routeURL = "/upload";
   const VideoRecordingScreen({Key? key}) : super(key: key);
 
   @override
@@ -26,7 +30,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     upperBound: 1.0,
   );
   late final Animation<double> _recordingButtonAnimation = Tween(begin: 1.0, end: 1.3).animate(_recordingButtonAnimationController);
-  late final double _maxZoomLevel, _minZoomLevel;
+  late final double _maxZoomLevel;
+  late final bool _isCamera = !Platform.isIOS;
 
   late CameraController _cameraController;
 
@@ -73,7 +78,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     await _cameraController.prepareForVideoRecording();
     _currentFlashMode = _flashModes.indexOf(_cameraController.value.flashMode);
     _maxZoomLevel = await _cameraController.getMaxZoomLevel();
-    _minZoomLevel = await _cameraController.getMinZoomLevel();
 
     setState(() {});
   }
@@ -95,8 +99,6 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
 
   Future<void> _startRecording(TapDownDetails _) async {
     if (_cameraController.value.isRecordingVideo) return;
-
-    return;
 
     await _cameraController.startVideoRecording();
     _recordingButtonAnimationController.forward();
@@ -141,7 +143,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     );
   }
 
-  void zoom(DragUpdateDetails details) {
+  void _zoom(DragUpdateDetails details) {
     if (_dragStartPosition == 0.0) {
       _dragStartPosition = details.globalPosition.dx;
     }
@@ -162,16 +164,23 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
     }
   }
 
-  void resetDragPosition(DragEndDetails _) {
+  void _stopDrag(DragEndDetails _) {
     _dragStartPosition = 0.0;
     _currentZoomLevel = _tempZoomLevel;
     _tempZoomLevel = 0.0;
+    _stopRecording();
   }
 
   @override
   void initState() {
     super.initState();
-    initPermissions();
+    if (_isCamera) {
+      initPermissions();
+    } else {
+      setState(() {
+        _isGrantedPermissions = true;
+      });
+    }
     WidgetsBinding.instance.addObserver(this);
     _recordingProgressAnimationController.addListener(() {
       setState(() {});
@@ -187,12 +196,15 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
   void dispose() {
     _recordingButtonAnimationController.dispose();
     _recordingProgressAnimationController.dispose();
-    _cameraController.dispose();
+    if (_isCamera) {
+      _cameraController.dispose();
+    }
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (!_isCamera) return;
     if (!_isGrantedPermissions) return;
     if (state == AppLifecycleState.inactive && _cameraController.value.isInitialized) {
       _cameraController.dispose();
@@ -204,10 +216,11 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: !_isGrantedPermissions || !_cameraController.value.isInitialized
+        child: !_isGrantedPermissions
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -226,30 +239,38 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
             : Stack(
                 alignment: Alignment.center,
                 children: [
-                  CameraPreview(_cameraController),
+                  if (_isCamera && _cameraController.value.isInitialized) CameraPreview(_cameraController),
                   Positioned(
-                    top: Sizes.size28,
-                    right: 0,
-                    child: Column(
-                      children: [
-                        IconButton(
-                          color: Colors.white,
-                          onPressed: _changeCameraMode,
-                          icon: const Icon(
-                            Icons.cameraswitch,
-                          ),
-                        ),
-                        Gaps.v10,
-                        IconButton(
-                          color: _flashModes[_currentFlashMode] == FlashMode.off ? Colors.white : Colors.amber.shade200,
-                          onPressed: _changeFlashMode,
-                          icon: Icon(
-                            _flashModeIcons[_currentFlashMode],
-                          ),
-                        ),
-                      ],
+                    top: Sizes.size36,
+                    left: 0,
+                    child: CloseButton(
+                      color: Colors.white,
                     ),
                   ),
+                  if (_isCamera)
+                    Positioned(
+                      top: Sizes.size28,
+                      right: 0,
+                      child: Column(
+                        children: [
+                          IconButton(
+                            color: Colors.white,
+                            onPressed: _changeCameraMode,
+                            icon: const Icon(
+                              Icons.cameraswitch,
+                            ),
+                          ),
+                          Gaps.v10,
+                          IconButton(
+                            color: _flashModes[_currentFlashMode] == FlashMode.off ? Colors.white : Colors.amber.shade200,
+                            onPressed: _changeFlashMode,
+                            icon: Icon(
+                              _flashModeIcons[_currentFlashMode],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   Positioned(
                     bottom: Sizes.size40,
                     width: MediaQuery.of(context).size.width,
@@ -260,8 +281,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> with Ticker
                           const Spacer(),
                           GestureDetector(
                             onTapDown: _startRecording,
-                            onPanUpdate: zoom,
-                            onPanEnd: resetDragPosition,
+                            onPanUpdate: _zoom,
+                            onPanEnd: _stopDrag,
                             onTapUp: (details) => _stopRecording(),
                             child: Stack(
                               alignment: Alignment.center,

@@ -17,32 +17,16 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   void onLoginTap(BuildContext context) async {
-    context.push(LoginScreen.routeName);
+    context.pushNamed(LoginScreen.routeName);
   }
 
   void onEmailAndPasswordTap(BuildContext context) {
-    // Navigator.of(context).push(
-    //   PageRouteBuilder(
-    //     transitionDuration: const Duration(seconds: 1),
-    //     reverseTransitionDuration: const Duration(seconds: 1),
-    //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-    //       final offsetAnimation = Tween(
-    //         begin: Offset(0, -1),
-    //         end: Offset.zero,
-    //       ).animate(animation);
-    //       return SlideTransition(
-    //         position: offsetAnimation,
-    //         child: FadeTransition(
-    //           opacity: animation,
-    //           child: child,
-    //         ),
-    //       );
-    //     },
-    //     pageBuilder: (context, animation, secondaryAnimation) => const UsernameScreen(),
-    //   ),
-    // );
-    context.pushNamed(UsernameScreen.routeName);
-    // context.push("/users/jun?show=likes");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
+      ),
+    );
   }
 
   @override
@@ -58,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     Gaps.v80,
                     Text(
-                      S.of(context).signUpTitle("TikTok", DateTime.now()),
+                      S.of(context).signUpTitle("TikTok"),
                       style: GoogleFonts.notoSans(
                         textStyle: const TextStyle(
                           fontSize: Sizes.size24,

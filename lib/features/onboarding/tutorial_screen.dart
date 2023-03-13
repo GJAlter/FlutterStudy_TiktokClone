@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/features/onboarding/widgets/tutorial_page.dart';
 import 'package:tiktok_clone/utils.dart';
 
@@ -40,12 +40,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void onEnterAppTap() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MainNavigationScreen(),
-        ),
-        (route) => false);
+    context.go("/home");
   }
 
   @override

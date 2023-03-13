@@ -1,6 +1,6 @@
 {
   "test": "테스트",
-  "signUpTitle": "{appName}에 가입하세요 {when}",
+  "signUpTitle": "{appName}에 가입하세요",
   "loginTitle": "Log into your {appName} account",
   "@loginTitle": {
     "description": "The title people people see when they open the log in screen.",
