@@ -85,13 +85,16 @@ class _SettingScreenState extends State<SettingScreen> {
             activeColor: Theme.of(context).primaryColor,
             title: const Text("Enable Notifications"),
           ),
-          SwitchListTile.adaptive(
-            value: VideoConfigData.of(context).autoMuted,
-            onChanged: (value) {
-              VideoConfigData.of(context).toggleMuted();
-            },
-            activeColor: Theme.of(context).primaryColor,
-            title: const Text("Auto Mute"),
+          AnimatedBuilder(
+            animation: videoConfig,
+            builder: (context, child) => SwitchListTile.adaptive(
+              value: videoConfig.autoMute,
+              onChanged: (value) {
+                videoConfig.setAutoMute(value);
+              },
+              activeColor: Theme.of(context).primaryColor,
+              title: const Text("AutoMute"),
+            ),
           ),
           SwitchListTile.adaptive(
             value: isNotifications,

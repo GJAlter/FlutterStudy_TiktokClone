@@ -36,7 +36,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool isPaused = false;
   bool isSeeMore = false;
   bool isDisposed = false;
-  bool isMuted = true;
+  bool isMuted = videoConfig.autoMute;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -106,10 +106,15 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   }
 
   void onMuteTap() async {
-    await videoPlayerController.setVolume(100);
-    setState(() {
-      VideoConfigData.of(context).toggleMuted();
-    });
+    if (isMuted) {
+      await videoPlayerController.setVolume(100);
+    } else {
+      await videoPlayerController.setVolume(0);
+    }
+    videoConfig.setAutoMute(!isMuted);
+    // setState(() {
+    //   isMuted = !isMuted;
+    // });
   }
 
   @override
@@ -117,6 +122,12 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     super.initState();
     initVideoPlayer();
     initAnimationController();
+
+    videoConfig.addListener(() {
+      setState(() {
+        isMuted = videoConfig.autoMute;
+      });
+    });
   }
 
   @override
@@ -288,7 +299,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             child: GestureDetector(
               onTap: onMuteTap,
               child: FaIcon(
-                VideoConfigData.of(context).autoMuted ? FontAwesomeIcons.volumeHigh : FontAwesomeIcons.volumeOff,
+                !isMuted ? FontAwesomeIcons.volumeHigh : FontAwesomeIcons.volumeOff,
                 color: Colors.white,
                 size: Sizes.size24,
               ),
