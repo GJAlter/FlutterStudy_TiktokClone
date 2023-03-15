@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tiktok_clone/common/widgets/video_config/video_config.dart';
+import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -28,6 +28,28 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: ListView(
         children: [
+          ValueListenableBuilder(
+            valueListenable: videoConfig,
+            builder: (context, value, child) => SwitchListTile.adaptive(
+              value: value,
+              onChanged: (value) {
+                videoConfig.value = value;
+              },
+              activeColor: Theme.of(context).primaryColor,
+              title: const Text("AutoMute"),
+            ),
+          ),
+          ValueListenableBuilder(
+            valueListenable: darkModeConfig,
+            builder: (context, value, child) => SwitchListTile.adaptive(
+              value: value,
+              onChanged: (value) {
+                darkModeConfig.value = value;
+              },
+              activeColor: Theme.of(context).primaryColor,
+              title: const Text("DarkMode"),
+            ),
+          ),
           const AboutListTile(),
           ListTile(
             onTap: () => showLicensePage(
@@ -84,17 +106,6 @@ class _SettingScreenState extends State<SettingScreen> {
             onChanged: onNotificationChanged,
             activeColor: Theme.of(context).primaryColor,
             title: const Text("Enable Notifications"),
-          ),
-          AnimatedBuilder(
-            animation: videoConfig,
-            builder: (context, child) => SwitchListTile.adaptive(
-              value: videoConfig.autoMute,
-              onChanged: (value) {
-                videoConfig.setAutoMute(value);
-              },
-              activeColor: Theme.of(context).primaryColor,
-              title: const Text("AutoMute"),
-            ),
           ),
           SwitchListTile.adaptive(
             value: isNotifications,

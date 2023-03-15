@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:tiktok_clone/common/widgets/video_config/video_config.dart';
+import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/video_comment_screen.dart';
@@ -36,7 +36,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool isPaused = false;
   bool isSeeMore = false;
   bool isDisposed = false;
-  bool isMuted = videoConfig.autoMute;
+  bool isMuted = videoConfig.value;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -111,7 +111,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     } else {
       await videoPlayerController.setVolume(0);
     }
-    videoConfig.setAutoMute(!isMuted);
+    videoConfig.value = !isMuted;
     // setState(() {
     //   isMuted = !isMuted;
     // });
@@ -125,7 +125,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
 
     videoConfig.addListener(() {
       setState(() {
-        isMuted = videoConfig.autoMute;
+        isMuted = videoConfig.value;
       });
     });
   }
