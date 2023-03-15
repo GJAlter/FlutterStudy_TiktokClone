@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
@@ -36,7 +37,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool isPaused = false;
   bool isSeeMore = false;
   bool isDisposed = false;
-  bool isMuted = videoConfig.value;
+  bool isMuted = false;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -111,7 +112,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     } else {
       await videoPlayerController.setVolume(0);
     }
-    videoConfig.value = !isMuted;
+    context.read<VideoConfig>().toggleIsMuted();
     // setState(() {
     //   isMuted = !isMuted;
     // });
@@ -122,12 +123,6 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     super.initState();
     initVideoPlayer();
     initAnimationController();
-
-    videoConfig.addListener(() {
-      setState(() {
-        isMuted = videoConfig.value;
-      });
-    });
   }
 
   @override
@@ -299,7 +294,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             child: GestureDetector(
               onTap: onMuteTap,
               child: FaIcon(
-                !isMuted ? FontAwesomeIcons.volumeHigh : FontAwesomeIcons.volumeOff,
+                context.watch<VideoConfig>().isMuted ? FontAwesomeIcons.volumeOff : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
                 size: Sizes.size24,
               ),
