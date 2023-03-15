@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
+import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -30,10 +31,20 @@ class _SettingScreenState extends State<SettingScreen> {
       body: ListView(
         children: [
           SwitchListTile.adaptive(
-            value: context.watch<VideoConfig>().isMuted,
-            onChanged: (value) => context.read<VideoConfig>().toggleIsMuted(),
+            value: context.watch<PlaybackConfigViewModel>().isMuted,
+            onChanged: (value) {
+              context.read<PlaybackConfigViewModel>().setMuted(value);
+            },
             activeColor: Theme.of(context).primaryColor,
             title: const Text("AutoMute"),
+          ),
+          SwitchListTile.adaptive(
+            value: context.watch<PlaybackConfigViewModel>().isAutoPlay,
+            onChanged: (value) {
+              context.read<PlaybackConfigViewModel>().setAutoPlay(value);
+            },
+            activeColor: Theme.of(context).primaryColor,
+            title: const Text("AutoPlay"),
           ),
           ValueListenableBuilder(
             valueListenable: darkModeConfig,

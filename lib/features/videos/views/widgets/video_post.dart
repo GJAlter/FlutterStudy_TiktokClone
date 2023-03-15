@@ -2,15 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/features/videos/video_comment_screen.dart';
-import 'package:tiktok_clone/features/videos/widgets/video_button.dart';
+import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
+import 'package:tiktok_clone/features/videos/views/video_comment_screen.dart';
+import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
+import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
-import '../../../generated/l10n.dart';
 
 class VideoPost extends StatefulWidget {
   final Function onVideoFinished;
@@ -37,7 +36,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool isPaused = false;
   bool isSeeMore = false;
   bool isDisposed = false;
-  bool isMuted = false;
+  bool _isMuted = false;
 
   void onVideoChange() {
     if (!videoPlayerController.value.isInitialized) {
@@ -71,7 +70,14 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   void onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
     if (info.visibleFraction == 1 && !isPaused && !videoPlayerController.value.isPlaying) {
-      videoPlayerController.play();
+      final autoPlay = context.read<PlaybackConfigViewModel>().isAutoPlay;
+      isPaused = !autoPlay;
+      if (autoPlay) {
+        videoPlayerController.play();
+      }
+      if (context.read<PlaybackConfigViewModel>().isMuted != _isMuted) {
+        onMuteTap();
+      }
     }
 
     if (videoPlayerController.value.isPlaying && info.visibleFraction == 0 && !isDisposed) {
@@ -106,16 +112,24 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     onPauseTap();
   }
 
-  void onMuteTap() async {
-    if (isMuted) {
-      await videoPlayerController.setVolume(100);
+  void onMuteTap() {
+    if (_isMuted) {
+      videoPlayerController.setVolume(1);
     } else {
-      await videoPlayerController.setVolume(0);
+      videoPlayerController.setVolume(0);
     }
-    context.read<VideoConfig>().toggleIsMuted();
-    // setState(() {
-    //   isMuted = !isMuted;
-    // });
+    setState(() {
+      _isMuted = !_isMuted;
+    });
+  }
+
+  void _onPlaybackConfigChanged() {
+    if (!mounted) return;
+    if (!context.read<PlaybackConfigViewModel>().isMuted) {
+      videoPlayerController.setVolume(1);
+    } else {
+      videoPlayerController.setVolume(0);
+    }
   }
 
   @override
@@ -123,6 +137,8 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     super.initState();
     initVideoPlayer();
     initAnimationController();
+
+    context.read<PlaybackConfigViewModel>().addListener(_onPlaybackConfigChanged);
   }
 
   @override
@@ -294,7 +310,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
             child: GestureDetector(
               onTap: onMuteTap,
               child: FaIcon(
-                context.watch<VideoConfig>().isMuted ? FontAwesomeIcons.volumeOff : FontAwesomeIcons.volumeHigh,
+                _isMuted ? FontAwesomeIcons.volumeOff : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
                 size: Sizes.size24,
               ),

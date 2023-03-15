@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/utils.dart';
 
-import '../../constants/gaps.dart';
-import '../../generated/l10n.dart';
+import '../../../constants/gaps.dart';
+import '../../../generated/l10n.dart';
 
 class VideoCommentScreen extends StatefulWidget {
   const VideoCommentScreen({Key? key}) : super(key: key);
