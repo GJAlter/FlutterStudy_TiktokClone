@@ -1,29 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
 import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
 
-class SettingScreen extends StatefulWidget {
+class SettingScreen extends ConsumerWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  bool isNotifications = false;
-
-  void onNotificationChanged(bool? value) {
-    if (value == null) return;
-    setState(() {
-      isNotifications = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings"),
@@ -31,18 +17,14 @@ class _SettingScreenState extends State<SettingScreen> {
       body: ListView(
         children: [
           SwitchListTile.adaptive(
-            value: context.watch<PlaybackConfigViewModel>().isMuted,
-            onChanged: (value) {
-              context.read<PlaybackConfigViewModel>().setMuted(value);
-            },
+            value: ref.watch(playbackConfigProvider).isMuted,
+            onChanged: (value) => ref.watch(playbackConfigProvider.notifier).setMuted(value),
             activeColor: Theme.of(context).primaryColor,
             title: const Text("AutoMute"),
           ),
           SwitchListTile.adaptive(
-            value: context.watch<PlaybackConfigViewModel>().isAutoPlay,
-            onChanged: (value) {
-              context.read<PlaybackConfigViewModel>().setAutoPlay(value);
-            },
+            value: ref.watch(playbackConfigProvider).isAutoPlay,
+            onChanged: (value) => ref.watch(playbackConfigProvider.notifier).setAutoPlay(value),
             activeColor: Theme.of(context).primaryColor,
             title: const Text("AutoPlay"),
           ),
@@ -78,7 +60,6 @@ class _SettingScreenState extends State<SettingScreen> {
                 firstDate: DateTime(1990),
                 lastDate: DateTime(2030),
               );
-              if (!mounted) return;
               final time = await showTimePicker(context: context, initialTime: TimeOfDay.now());
 
               if (kDebugMode) {
@@ -109,14 +90,14 @@ class _SettingScreenState extends State<SettingScreen> {
             title: const Text("DateRange"),
           ),
           CheckboxListTile(
-            value: isNotifications,
-            onChanged: onNotificationChanged,
+            value: false,
+            onChanged: (value) {},
             activeColor: Theme.of(context).primaryColor,
             title: const Text("Enable Notifications"),
           ),
           SwitchListTile.adaptive(
-            value: isNotifications,
-            onChanged: onNotificationChanged,
+            value: false,
+            onChanged: (value) {},
             activeColor: Theme.of(context).primaryColor,
             title: const Text("Enable Notifications"),
           ),

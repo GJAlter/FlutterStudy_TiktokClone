@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
@@ -11,7 +11,7 @@ import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
   final String description;
@@ -24,10 +24,10 @@ class VideoPost extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMixin {
+class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderStateMixin {
   final VideoPlayerController videoPlayerController = VideoPlayerController.asset("assets/videos/video4.mp4");
   final animationDuration = const Duration(milliseconds: 200);
 
@@ -53,6 +53,10 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     if (kIsWeb) {
       await videoPlayerController.setVolume(0);
     }
+    if (ref.read(playbackConfigProvider).isMuted) {
+      _isMuted = true;
+      await videoPlayerController.setVolume(0);
+    }
     videoPlayerController.addListener(onVideoChange);
     setState(() {});
   }
@@ -70,13 +74,8 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   void onVisibilityChanged(VisibilityInfo info) {
     if (!mounted) return;
     if (info.visibleFraction == 1 && !isPaused && !videoPlayerController.value.isPlaying) {
-      final autoPlay = context.read<PlaybackConfigViewModel>().isAutoPlay;
-      isPaused = !autoPlay;
-      if (autoPlay) {
+      if (ref.read(playbackConfigProvider).isAutoPlay) {
         videoPlayerController.play();
-      }
-      if (context.read<PlaybackConfigViewModel>().isMuted != _isMuted) {
-        onMuteTap();
       }
     }
 
@@ -125,7 +124,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
 
   void _onPlaybackConfigChanged() {
     if (!mounted) return;
-    if (!context.read<PlaybackConfigViewModel>().isMuted) {
+    if (false) {
       videoPlayerController.setVolume(1);
     } else {
       videoPlayerController.setVolume(0);
@@ -137,8 +136,6 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     super.initState();
     initVideoPlayer();
     initAnimationController();
-
-    context.read<PlaybackConfigViewModel>().addListener(_onPlaybackConfigChanged);
   }
 
   @override
