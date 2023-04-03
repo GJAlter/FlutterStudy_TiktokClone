@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_post.dart';
 
-class VideoTimelineScreen extends StatefulWidget {
+class VideoTimelineScreen extends ConsumerStatefulWidget {
   const VideoTimelineScreen({Key? key}) : super(key: key);
 
   @override
-  State<VideoTimelineScreen> createState() => _VideoTimelineScreenState();
+  VideoTimelineScreenState createState() => VideoTimelineScreenState();
 }
 
-class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
+class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   final PageController pageController = PageController();
   final Duration scrollDuration = const Duration(milliseconds: 250);
   final Curve scrollCurve = Curves.linear;
@@ -52,22 +54,29 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      displacement: 0,
-      edgeOffset: 100,
-      color: Colors.black,
-      onRefresh: onRefresh,
-      child: PageView.builder(
-        scrollDirection: Axis.vertical,
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        itemCount: colors.length,
-        itemBuilder: (context, index) => VideoPost(
-          onVideoFinished: onVideoFinished,
-          index: index,
-          description: "가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하 가나다라마바사아자차카타파하",
-        ),
-      ),
-    );
+    return ref.watch(timelineProvider).when(
+        loading: () => Center(
+              child: CircularProgressIndicator(),
+            ),
+        error: (error, stackTrace) => Center(
+              child: Text("Could not load videos: $error"),
+            ),
+        data: (videos) => RefreshIndicator(
+              displacement: 0,
+              edgeOffset: 100,
+              color: Colors.black,
+              onRefresh: onRefresh,
+              child: PageView.builder(
+                scrollDirection: Axis.vertical,
+                controller: pageController,
+                onPageChanged: onPageChanged,
+                itemCount: videos.length,
+                itemBuilder: (context, index) => VideoPost(
+                  onVideoFinished: onVideoFinished,
+                  index: index,
+                  description: videos[0].title,
+                ),
+              ),
+            ));
   }
 }
