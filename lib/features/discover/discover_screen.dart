@@ -83,12 +83,15 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       onChanged: onSearchChanged,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: isDarkMode(context) ? Colors.grey.shade800 : Colors.grey.shade200,
+                        fillColor: isDarkMode(context)
+                            ? Colors.grey.shade800
+                            : Colors.grey.shade200,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(Sizes.size3),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(vertical: Sizes.size10),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: Sizes.size10),
                         prefixIcon: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
@@ -158,7 +161,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                             : 2,
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size10,
-                childAspectRatio: 9 / 19,
+                childAspectRatio: 9 / 20,
               ),
               itemBuilder: (context, index) => LayoutBuilder(
                 builder: (context, constraint) => Column(
@@ -173,14 +176,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         child: FadeInImage.assetNetwork(
                           fit: BoxFit.cover,
                           placeholder: "assets/images/image1.jpeg",
-                          image: "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
+                          image:
+                              "https://images.unsplash.com/photo-1593291619431-271d4391ded1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d29uZGVyZnVsfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
                         ),
                       ),
                     ),
                     Gaps.v10,
                     const Text(
                       "This is a very long captions for my tiktok that im upload just now currently.",
-                      style: TextStyle(fontSize: Sizes.size18, fontWeight: FontWeight.bold, height: 1.1),
+                      style: TextStyle(
+                          fontSize: Sizes.size18,
+                          fontWeight: FontWeight.bold,
+                          height: 1.1),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -188,13 +195,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     if (constraint.maxWidth > 330 || constraint.maxWidth < 300)
                       DefaultTextStyle(
                         style: TextStyle(
-                          color: isDarkMode(context) ? Colors.grey.shade300 : Colors.grey.shade600,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade300
+                              : Colors.grey.shade600,
                           fontWeight: FontWeight.w600,
                         ),
                         child: Row(
                           children: [
                             const CircleAvatar(
-                              backgroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
+                              backgroundImage: NetworkImage(
+                                  "https://avatars.githubusercontent.com/u/15954278?v=4"),
                               radius: 14,
                             ),
                             Gaps.h4,
