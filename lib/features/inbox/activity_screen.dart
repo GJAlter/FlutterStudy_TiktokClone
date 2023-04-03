@@ -13,7 +13,8 @@ class ActivityScreen extends StatefulWidget {
   State<ActivityScreen> createState() => _ActivityScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProviderStateMixin {
+class _ActivityScreenState extends State<ActivityScreen>
+    with SingleTickerProviderStateMixin {
   final List<String> notifications = List.generate(20, (index) => "${index}h");
   final List<Map<String, dynamic>> activityMenus = [
     {
@@ -142,7 +143,9 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                         shape: BoxShape.circle,
                         color: isDark ? Colors.grey.shade800 : Colors.white,
                         border: Border.all(
-                          color: isDark ? Colors.grey.shade800 : Colors.grey.shade400,
+                          color: isDark
+                              ? Colors.grey.shade800
+                              : Colors.grey.shade400,
                           width: Sizes.size1,
                         ),
                       ),

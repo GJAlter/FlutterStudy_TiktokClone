@@ -101,17 +101,21 @@ class _ChatScreenState extends State<ChatScreen> {
               final isMine = index % 3 == 0;
               return Row(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+                mainAxisAlignment:
+                    isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(Sizes.size14),
                     decoration: BoxDecoration(
-                      color: isMine ? Colors.blue : Theme.of(context).primaryColor,
+                      color:
+                          isMine ? Colors.blue : Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(Sizes.size20),
                         topRight: const Radius.circular(Sizes.size20),
-                        bottomLeft: Radius.circular(isMine ? Sizes.size20 : Sizes.size5),
-                        bottomRight: Radius.circular(!isMine ? Sizes.size20 : Sizes.size5),
+                        bottomLeft: Radius.circular(
+                            isMine ? Sizes.size20 : Sizes.size5),
+                        bottomRight: Radius.circular(
+                            !isMine ? Sizes.size20 : Sizes.size5),
                       ),
                     ),
                     child: const Text(
@@ -181,7 +185,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         borderRadius: BorderRadius.circular(
                           Sizes.size32,
                         ),
-                        color: messageController.text.isEmpty ? Colors.grey.shade300 : Colors.lightBlueAccent,
+                        color: messageController.text.isEmpty
+                            ? Colors.grey.shade300
+                            : Colors.lightBlueAccent,
                       ),
                       child: const Align(
                         alignment: Alignment.center,

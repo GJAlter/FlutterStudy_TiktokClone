@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
-  List<VideoModel> _list = [];
+  List<VideoModel> _list = [VideoModel(title: "a")];
 
   void uploadVideo() async {
     state = AsyncValue.loading();
@@ -23,6 +23,7 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   }
 }
 
-final timelineProvider = AsyncNotifierProvider<TimelineViewModel, List<VideoModel>>(
+final timelineProvider =
+    AsyncNotifierProvider<TimelineViewModel, List<VideoModel>>(
   () => TimelineViewModel(),
 );
