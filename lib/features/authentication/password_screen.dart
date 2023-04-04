@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/birthday_screen.dart';
+import 'package:tiktok_clone/features/authentication/view_models/singup_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
-class PasswordScreen extends StatefulWidget {
+class PasswordScreen extends ConsumerStatefulWidget {
   const PasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<PasswordScreen> createState() => _PasswordScreenState();
+  ConsumerState<PasswordScreen> createState() => _PasswordScreenState();
 }
 
-class _PasswordScreenState extends State<PasswordScreen> {
+class _PasswordScreenState extends ConsumerState<PasswordScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   String password = "";
@@ -59,14 +61,15 @@ class _PasswordScreenState extends State<PasswordScreen> {
   }
 
   void onSubmitTap() {
-    if (password.isNotEmpty && isPasswordValid1() && isPasswordValid2()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const BirthdayScreen(),
-        ),
-      );
-    }
+    if (password.isEmpty || !isPasswordValid1() && !isPasswordValid2()) return;
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {...state, "password": password};
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BirthdayScreen(),
+      ),
+    );
   }
 
   @override

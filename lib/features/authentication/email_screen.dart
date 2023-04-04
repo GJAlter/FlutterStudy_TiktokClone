@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/authentication/password_screen.dart';
+import 'package:tiktok_clone/features/authentication/view_models/singup_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 class EmailScreenArgs {
@@ -9,15 +11,15 @@ class EmailScreenArgs {
   EmailScreenArgs({required this.username});
 }
 
-class EmailScreen extends StatefulWidget {
+class EmailScreen extends ConsumerStatefulWidget {
   final String username;
   const EmailScreen({Key? key, required this.username}) : super(key: key);
 
   @override
-  State<EmailScreen> createState() => _EmailScreenState();
+  ConsumerState<EmailScreen> createState() => EmailScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class EmailScreenState extends ConsumerState<EmailScreen> {
   final TextEditingController emailController = TextEditingController();
 
   String email = "";
@@ -39,7 +41,8 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   String? isEmailValid() {
-    final regExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    final regExp = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 
     if (email.isNotEmpty && !regExp.hasMatch(email)) {
       return "Email  Not Valid";
@@ -53,14 +56,14 @@ class _EmailScreenState extends State<EmailScreen> {
   }
 
   void onSubmitTap() {
-    if (email.isNotEmpty && isEmailValid() == null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const PasswordScreen(),
-        ),
-      );
-    }
+    if (email.isEmpty || isEmailValid() != null) return;
+    ref.read(signUpForm.notifier).state = {"email": email};
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PasswordScreen(),
+      ),
+    );
   }
 
   @override

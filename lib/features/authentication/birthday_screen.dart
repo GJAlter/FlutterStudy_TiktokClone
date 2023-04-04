@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/authentication/view_models/singup_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
-import 'package:tiktok_clone/features/onboarding/interests_screen.dart';
 
-class BirthdayScreen extends StatefulWidget {
+class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({Key? key}) : super(key: key);
 
   @override
-  State<BirthdayScreen> createState() => _BirthdayScreenState();
+  ConsumerState<BirthdayScreen> createState() => _BirthdayScreenState();
 }
 
-class _BirthdayScreenState extends State<BirthdayScreen> {
+class _BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   final TextEditingController birthdayController = TextEditingController();
 
-  DateTime initialDate = DateTime.now().subtract(const Duration(days: 365 * 12));
+  DateTime initialDate =
+      DateTime.now().subtract(const Duration(days: 365 * 12));
 
   @override
   void initState() {
@@ -31,11 +32,13 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
   }
 
   void onNextTap() {
-    context.goNamed(InterestsScreen.routeName);
+    ref.read(signUpProvider.notifier).signUp();
+    // context.goNamed(InterestsScreen.routeName);
   }
 
   void setTextFieldValueByDateTime(DateTime date) {
-    birthdayController.value = TextEditingValue(text: date.toString().split(" ").first);
+    birthdayController.value =
+        TextEditingValue(text: date.toString().split(" ").first);
   }
 
   @override
@@ -90,7 +93,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
             FormButton(
               onTap: () => onNextTap(),
               text: "Done",
-              disabled: false,
+              disabled: ref.watch(signUpProvider).isLoading,
             )
           ],
         ),
