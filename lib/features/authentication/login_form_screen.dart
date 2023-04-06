@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
+import 'package:tiktok_clone/features/authentication/view_models/login_view_model.dart';
 import 'package:tiktok_clone/features/authentication/widgets/form_button.dart';
 
 import '../../constants/sizes.dart';
-import '../onboarding/interests_screen.dart';
 
-class LoginFormScreen extends StatefulWidget {
+class LoginFormScreen extends ConsumerStatefulWidget {
   const LoginFormScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginFormScreen> createState() => _LoginFormScreenState();
+  ConsumerState<LoginFormScreen> createState() => _LoginFormScreenState();
 }
 
-class _LoginFormScreenState extends State<LoginFormScreen> {
+class _LoginFormScreenState extends ConsumerState<LoginFormScreen> {
   GlobalKey<FormState> formKey = GlobalKey();
   Map<String, String?> loginMap = {};
 
@@ -21,7 +21,8 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (formKey.currentState != null) {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
-        context.goNamed(InterestsScreen.routeName);
+        ref.read(loginProvider.notifier).login(loginMap["email"]!, loginMap["password"]!, context);
+        // context.goNamed(InterestsScreen.routeName);
       }
     }
   }
@@ -55,7 +56,7 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
 
                   return null;
                 },
-                onSaved: (newValue) => loginMap["id"] = newValue,
+                onSaved: (newValue) => loginMap["email"] = newValue,
               ),
               Gaps.v16,
               TextFormField(
@@ -74,9 +75,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
               Gaps.v28,
               GestureDetector(
                 onTap: onSubmitTap,
-                child: const FormButton(
+                child: FormButton(
                   text: "Next",
-                  disabled: false,
+                  disabled: ref.watch(loginProvider).isLoading,
                 ),
               ),
             ],

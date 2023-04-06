@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/common/widgets/setting/setting_config.dart';
+import 'package:tiktok_clone/features/authentication/repositories/authentication_repo.dart';
 import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
 
 class SettingScreen extends ConsumerWidget {
@@ -142,7 +144,7 @@ class SettingScreen extends ConsumerWidget {
               showDialog(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text("Are you sure?"),
+                  title: const Text("Are you sure?2"),
                   content: const Text("Pls dont go"),
                   actions: [
                     TextButton(
@@ -155,7 +157,8 @@ class SettingScreen extends ConsumerWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        ref.read(authRepo).signOut();
+                        context.go("/");
                       },
                       child: const Text(
                         "Yes",
