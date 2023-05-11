@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
 import 'package:tiktok_clone/features/videos/views/video_comment_screen.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
@@ -15,12 +16,14 @@ class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
   final String description;
+  final VideoModel video;
 
   const VideoPost({
     Key? key,
     required this.onVideoFinished,
     required this.index,
     required this.description,
+    required this.video,
   }) : super(key: key);
 
   @override
@@ -180,8 +183,9 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
           Positioned.fill(
             child: videoPlayerController.value.isInitialized
                 ? VideoPlayer(videoPlayerController)
-                : Container(
-                    color: Colors.black,
+                : Image.network(
+                    widget.video.thumbnailUrl,
+                    fit: BoxFit.cover,
                   ),
           ),
           Positioned.fill(
@@ -219,8 +223,8 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "@Jun",
+                Text(
+                  "@${widget.video.creator}",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -230,7 +234,7 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
                 Gaps.v10,
                 Container(
                   child: Text(
-                    splitDescription(widget.description, 0),
+                    splitDescription(widget.video.description, 0),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: Sizes.size16,
@@ -276,21 +280,22 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
             right: 10,
             child: Column(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
-                  foregroundImage: NetworkImage("https://avatars.githubusercontent.com/u/15954278?v=4"),
-                  child: Text("Jun"),
+                  foregroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/tiktok-clone-jun.appspot.com/o/"
+                      "avatars%2F${widget.video.uid}?alt=media&token=b4cdfab6-62ac-476a-8048-c2f34f535c91"),
+                  child: Text(widget.video.creator),
                 ),
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(23456123447123),
+                  text: S.of(context).likeCount(widget.video.likes),
                 ),
                 Gaps.v24,
                 VideoButton(
                   icon: FontAwesomeIcons.solidComment,
-                  text: S.of(context).commentCount(56780),
+                  text: S.of(context).commentCount(widget.video.comments),
                   onTap: onCommentTap,
                 ),
                 Gaps.v24,

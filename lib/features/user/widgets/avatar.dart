@@ -45,8 +45,8 @@ class Avatar extends ConsumerWidget {
           : CircleAvatar(
               radius: 50,
               foregroundImage: hasAvatar
-                  ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/tiktok-clone-jun.appspot"
-                      ".com/o/avatars%2F$uid?alt=media&token=aaa2bad7-f1eb-4646-8e4b-3f9a09b3f9bc&date=${DateTime.now()}")
+                  ? NetworkImage("https://firebasestorage.googleapis.com/v0/b/tiktok-clone-jun.appspot.com/o/"
+                      "avatars%2F$uid?alt=media&token=b4cdfab6-62ac-476a-8048-c2f34f535c91&date=${DateTime.now().millisecondsSinceEpoch}")
                   : null,
               child: Text(name),
             ),

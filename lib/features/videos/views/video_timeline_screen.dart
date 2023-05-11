@@ -67,16 +67,19 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
               color: Colors.black,
               onRefresh: onRefresh,
               child: PageView.builder(
-                scrollDirection: Axis.vertical,
-                controller: pageController,
-                onPageChanged: onPageChanged,
-                itemCount: videos.length,
-                itemBuilder: (context, index) => VideoPost(
-                  onVideoFinished: onVideoFinished,
-                  index: index,
-                  description: videos[0].title,
-                ),
-              ),
+                  scrollDirection: Axis.vertical,
+                  controller: pageController,
+                  onPageChanged: onPageChanged,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    final video = videos[index];
+                    return VideoPost(
+                      onVideoFinished: onVideoFinished,
+                      index: index,
+                      description: videos[0].title,
+                      video: video,
+                    );
+                  }),
             ));
   }
 }
