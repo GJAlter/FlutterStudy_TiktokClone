@@ -45,6 +45,8 @@ class VideosRepository {
         // "videoId": videoId,
         // "userId": userId,
       });
+    } else {
+      await query.delete();
     }
   }
 }
