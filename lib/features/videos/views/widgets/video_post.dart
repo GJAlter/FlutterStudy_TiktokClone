@@ -6,6 +6,7 @@ import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
 import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/palyback_config_vm.dart';
+import 'package:tiktok_clone/features/videos/view_models/video_post_view_models.dart';
 import 'package:tiktok_clone/features/videos/views/video_comment_screen.dart';
 import 'package:tiktok_clone/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
@@ -48,6 +49,10 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
     if (videoPlayerController.value.duration == videoPlayerController.value.position) {
       widget.onVideoFinished();
     }
+  }
+
+  void _onLikeTap() {
+    ref.read(videoPostProvider(widget.video.id).notifier).likeVideo();
   }
 
   void initVideoPlayer() async {
@@ -288,9 +293,12 @@ class VideoPostState extends ConsumerState<VideoPost> with SingleTickerProviderS
                   child: Text(widget.video.creator),
                 ),
                 Gaps.v24,
-                VideoButton(
-                  icon: FontAwesomeIcons.solidHeart,
-                  text: S.of(context).likeCount(widget.video.likes),
+                GestureDetector(
+                  onTap: _onLikeTap,
+                  child: VideoButton(
+                    icon: FontAwesomeIcons.solidHeart,
+                    text: S.of(context).likeCount(widget.video.likes),
+                  ),
                 ),
                 Gaps.v24,
                 VideoButton(
