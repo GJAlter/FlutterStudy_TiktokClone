@@ -15,23 +15,12 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   final Duration scrollDuration = const Duration(milliseconds: 250);
   final Curve scrollCurve = Curves.linear;
 
-  List<Color> colors = [
-    Colors.blue,
-    Colors.red,
-    Colors.teal,
-    Colors.yellow,
-  ];
+  int _itemCount = 0;
 
   void onPageChanged(int page) {
     pageController.animateToPage(page, duration: scrollDuration, curve: scrollCurve);
-    if (page == colors.length - 1) {
-      colors.addAll([
-        Colors.blue,
-        Colors.red,
-        Colors.teal,
-        Colors.yellow,
-      ]);
-      setState(() {});
+    if (page == _itemCount - 1) {
+      ref.watch(timelineProvider.notifier).fetchNextPage();
     }
   }
 
@@ -55,31 +44,36 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
   @override
   Widget build(BuildContext context) {
     return ref.watch(timelineProvider).when(
-        loading: () => Center(
-              child: CircularProgressIndicator(),
-            ),
-        error: (error, stackTrace) => Center(
-              child: Text("Could not load videos: $error"),
-            ),
-        data: (videos) => RefreshIndicator(
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          error: (error, stackTrace) => Center(
+            child: Text("Could not load videos: $error"),
+          ),
+          data: (videos) {
+            _itemCount = videos.length;
+            return RefreshIndicator(
               displacement: 0,
               edgeOffset: 100,
               color: Colors.black,
               onRefresh: onRefresh,
               child: PageView.builder(
-                  scrollDirection: Axis.vertical,
-                  controller: pageController,
-                  onPageChanged: onPageChanged,
-                  itemCount: videos.length,
-                  itemBuilder: (context, index) {
-                    final video = videos[index];
-                    return VideoPost(
-                      onVideoFinished: onVideoFinished,
-                      index: index,
-                      description: videos[0].title,
-                      video: video,
-                    );
-                  }),
-            ));
+                scrollDirection: Axis.vertical,
+                controller: pageController,
+                onPageChanged: onPageChanged,
+                itemCount: _itemCount,
+                itemBuilder: (context, index) {
+                  final video = videos[index];
+                  return VideoPost(
+                    onVideoFinished: onVideoFinished,
+                    index: index,
+                    description: videos[0].title,
+                    video: video,
+                  );
+                },
+              ),
+            );
+          },
+        );
   }
 }
